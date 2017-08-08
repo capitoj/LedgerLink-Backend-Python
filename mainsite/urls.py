@@ -16,6 +16,7 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls import include, url
 from django.contrib import admin
+from django.contrib.auth import views as auth_views
 
 #from library.forms import BookForm
 from library.forms import BookForm
@@ -25,7 +26,7 @@ from xf_crud.xf_crud_helpers import crudurl
 urlpatterns = [
     url(r'^', include('this_dashboard.urls')),
     #url(r'^dashboards/', include('uc_dashboards.urls')),
-    url(r'^dashboards/login$', 'django.contrib.auth.views.login'),
+    url(r'^dashboards/login$', auth_views.login),
     url(r'^', include('uc_dashboards.urls')),
     url(r'^admin/', admin.site.urls),
 ]

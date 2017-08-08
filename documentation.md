@@ -55,6 +55,13 @@ but they are automatically applied to any widgets. The user cannot undo this,
 but if a filterbar is available the user may be override the preset
 filter if the filterbar provides an option for that filter.
 
+## Python 3
+Installing Python 3:
+http://python-guide-pt-br.readthedocs.io/en/latest/starting/install3/osx/
+
+We are moving there soon
+
+## Django 1.11
 
 
 
