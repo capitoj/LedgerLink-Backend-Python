@@ -1,0 +1,177 @@
+{% extends "xf_base.html" %}
+{% load dashgent_filters %}
+
+{% block main %}
+
+    <!-- top tiles -->
+    {% include "t_block_ajxldr_tiles.html" with widget_slug="sample_tiles" id2="widget_preterm_tiles" %}
+
+    <!-- /top tiles -->
+
+
+    <div class="row">
+        <div class="{{ 4|cw }}">
+            {% include "t_block_ajxldr_xpanel.html" with widget_slug="prop_delivery" height=" " %}
+        </div>
+        <div class="{{ 4|cw }}">
+            {% include "t_block_ajxldr_xpanel.html" with widget_slug="diagnosis_pie" height=" " %}
+        </div>
+        <div class="{{ 4|cw }}">
+            {% include "t_block_ajxldr_xpanel.html" with widget_slug="modes_of_delivery_pie" height=" " %}
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="{{ 6|cw }}">
+            {% include "t_block_ajxldr_xpanel.html" with widget_slug="birth_trends_line" height=" " %}
+        </div>
+        <div class="{{ 6|cw }}">
+            {% include "t_block_ajxldr_xpanel.html" with widget_slug="diagnosis_list" height="" %}
+            {% include "t_block_ajxldr_xpanel.html" with id="widget_current_time" %}
+        </div>
+    </div>
+
+
+
+{% endblock %}
+
+{% block j %}
+    <!-- easy-pie-chart -->
+    <script src="{{ STATIC_URL }}dashgent/vendors/jquery.easy-pie-chart/dist/jquery.easypiechart.min.js"></script>
+
+
+    <!-- bootstrap-daterangepicker -->
+    <script>
+        $(document).ready(function () {
+
+            var cb = function (start, end, label) {
+                console.log(start.toISOString(), end.toISOString(), label);
+                $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+            };
+
+            var optionSet1 = {
+                startDate: moment().subtract(29, 'days'),
+                endDate: moment(),
+                minDate: '01/01/2012',
+                maxDate: '12/31/2015',
+                dateLimit: {
+                    days: 60
+                },
+                showDropdowns: true,
+                showWeekNumbers: true,
+                timePicker: false,
+                timePickerIncrement: 1,
+                timePicker12Hour: true,
+                ranges: {
+                    'Today': [moment(), moment()],
+                    'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                    'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                    'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                    'This Month': [moment().startOf('month'), moment().endOf('month')],
+                    'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                },
+                opens: 'left',
+                buttonClasses: ['btn btn-default'],
+                applyClass: 'btn-small btn-primary',
+                cancelClass: 'btn-small',
+                format: 'MM/DD/YYYY',
+                separator: ' to ',
+                locale: {
+                    applyLabel: 'Submit',
+                    cancelLabel: 'Clear',
+                    fromLabel: 'From',
+                    toLabel: 'To',
+                    customRangeLabel: 'Custom',
+                    daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+                    monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+                    firstDay: 1
+                }
+            };
+            $('#reportrange span').html(moment().subtract(29, 'days').format('MMMM D, YYYY') + ' - ' + moment().format('MMMM D, YYYY'));
+            $('#reportrange').daterangepicker(optionSet1, cb);
+            $('#reportrange').on('show.daterangepicker', function () {
+                console.log("show event fired");
+            });
+            $('#reportrange').on('hide.daterangepicker', function () {
+                console.log("hide event fired");
+            });
+            $('#reportrange').on('apply.daterangepicker', function (ev, picker) {
+                console.log("apply event fired, start/end dates are " + picker.startDate.format('MMMM D, YYYY') + " to " + picker.endDate.format('MMMM D, YYYY'));
+            });
+            $('#reportrange').on('cancel.daterangepicker', function (ev, picker) {
+                console.log("cancel event fired");
+            });
+            $('#options1').click(function () {
+                $('#reportrange').data('daterangepicker').setOptions(optionSet1, cb);
+            });
+            $('#options2').click(function () {
+                $('#reportrange').data('daterangepicker').setOptions(optionSet2, cb);
+            });
+            $('#destroy').click(function () {
+                $('#reportrange').data('daterangepicker').remove();
+            });
+        });
+    </script>
+    <!-- /bootstrap-daterangepicker -->
+
+    <!-- easy-pie-chart -->
+    <script>
+        $(document).ready(function () {
+            $('.chart').easyPieChart({
+                easing: 'easeOutElastic',
+                delay: 3000,
+                barColor: '#26B99A',
+                trackColor: '#fff',
+                scaleColor: false,
+                lineWidth: 20,
+                trackWidth: 16,
+                lineCap: 'butt',
+                onStep: function (from, to, percent) {
+                    $(this.el).find('.percent').text(Math.round(percent));
+                }
+            });
+            var chart = window.chart = $('.chart').data('easyPieChart');
+            $('.js_update').on('click', function () {
+                chart.update(Math.random() * 200 - 100);
+            });
+
+            //hover and retain popover when on popover content
+            var originalLeave = $.fn.popover.Constructor.prototype.leave;
+            $.fn.popover.Constructor.prototype.leave = function (obj) {
+                var self = obj instanceof this.constructor ?
+                        obj : $(obj.currentTarget)[this.type](this.getDelegateOptions()).data('bs.' + this.type);
+                var container, timeout;
+
+                originalLeave.call(this, obj);
+
+                if (obj.currentTarget) {
+                    container = $(obj.currentTarget).siblings('.popover');
+                    timeout = self.timeout;
+                    container.one('mouseenter', function () {
+                        //We entered the actual popover – call off the dogs
+                        clearTimeout(timeout);
+                        //Let's monitor popover content instead
+                        container.one('mouseleave', function () {
+                            $.fn.popover.Constructor.prototype.leave.call(self, self);
+                        });
+                    });
+                }
+            };
+
+            $('body').popover({
+                selector: '[data-popover]',
+                trigger: 'click hover',
+                delay: {
+                    show: 50,
+                    hide: 400
+                }
+            });
+        });
+    </script>
+    <!-- easy-pie-chart -->
+
+
+
+
+{% endblock %}

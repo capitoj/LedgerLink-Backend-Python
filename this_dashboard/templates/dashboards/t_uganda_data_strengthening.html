@@ -1,0 +1,146 @@
+{% extends "xf_base.html" %}
+{% load dashgent_filters %}
+
+{% block main %}
+
+            <!-- top tiles -->
+
+            {% include "t_block_ajxldr_tiles.html" with widget_slug2="sample_tiles" id="widget_preterm_tiles" %}
+
+            <!-- /top tiles -->
+
+            <div class="row">
+                <div class="{{ 4|cw }}">
+                    {% include "dashboard_controls/dc_progress_circle.html" with caption="Births with recorded gestational age" data=data1 explanation="Births recorded with a gestational age are important in order to establish preterm birth." numdem_caption="1,331 of 1,862 births with recorded GA" %}
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-12">
+                    {% include "dashboard_controls/dc_progress_circle.html" with caption="Births with recorded birth weight" data=data2 explanation="Births recorded with a gestational age are important in order to establish preterm birth." numdem_caption="1,674 of 1,862 births with recorded birth weight" %}
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-12">
+                    {% include "dashboard_controls/dc_progress_circle.html" with caption="Births within the 90% percentile" data=data3 explanation="Births recorded with a gestational age are important in order to establish preterm birth." numdem_caption="886 of 1,243 births with GA within 10-90th birth weight" %}
+                </div>
+            </div>
+{% comment %}
+           <div class="row">
+            <div class="{{ 8|cw }}">
+                {% include "t_block_ajxldr_xpanel.html" with id="widget_blank" %}
+            </div>
+            <div class="{{ 4|cw }}" id="widget_current_time">
+                {% include "t_block_ajxldr_xpanel.html" with id="widget_current_time" %}
+            </div>
+
+           </div>
+
+
+            <div id="divdiv" >
+                DIVDIV
+            </div>
+               <a href="/" html-target="indicator" class2="ucsfajax">Click me</a>
+    {% endcomment %}
+
+{% endblock %}
+
+{% block j %}
+<!-- easy-pie-chart -->
+<script src="{{ STATIC_URL }}dashgent/vendors/jquery.easy-pie-chart/dist/jquery.easypiechart.min.js"></script>
+
+
+<!-- bootstrap-daterangepicker -->
+<script>
+    $(document).ready(function () {
+
+        var cb = function (start, end, label) {
+            console.log(start.toISOString(), end.toISOString(), label);
+            $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+        };
+
+        var optionSet1 = {
+            startDate: moment().subtract(29, 'days'),
+            endDate: moment(),
+            minDate: '01/01/2012',
+            maxDate: '12/31/2015',
+            dateLimit: {
+                days: 60
+            },
+            showDropdowns: true,
+            showWeekNumbers: true,
+            timePicker: false,
+            timePickerIncrement: 1,
+            timePicker12Hour: true,
+            ranges: {
+                'Today': [moment(), moment()],
+                'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                'This Month': [moment().startOf('month'), moment().endOf('month')],
+                'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+            },
+            opens: 'left',
+            buttonClasses: ['btn btn-default'],
+            applyClass: 'btn-small btn-primary',
+            cancelClass: 'btn-small',
+            format: 'MM/DD/YYYY',
+            separator: ' to ',
+            locale: {
+                applyLabel: 'Submit',
+                cancelLabel: 'Clear',
+                fromLabel: 'From',
+                toLabel: 'To',
+                customRangeLabel: 'Custom',
+                daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+                monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+                firstDay: 1
+            }
+        };
+        $('#reportrange span').html(moment().subtract(29, 'days').format('MMMM D, YYYY') + ' - ' + moment().format('MMMM D, YYYY'));
+        $('#reportrange').daterangepicker(optionSet1, cb);
+        $('#reportrange').on('show.daterangepicker', function () {
+            console.log("show event fired");
+        });
+        $('#reportrange').on('hide.daterangepicker', function () {
+            console.log("hide event fired");
+        });
+        $('#reportrange').on('apply.daterangepicker', function (ev, picker) {
+            console.log("apply event fired, start/end dates are " + picker.startDate.format('MMMM D, YYYY') + " to " + picker.endDate.format('MMMM D, YYYY'));
+        });
+        $('#reportrange').on('cancel.daterangepicker', function (ev, picker) {
+            console.log("cancel event fired");
+        });
+        $('#options1').click(function () {
+            $('#reportrange').data('daterangepicker').setOptions(optionSet1, cb);
+        });
+        $('#options2').click(function () {
+            $('#reportrange').data('daterangepicker').setOptions(optionSet2, cb);
+        });
+        $('#destroy').click(function () {
+            $('#reportrange').data('daterangepicker').remove();
+        });
+    });
+</script>
+<!-- /bootstrap-daterangepicker -->
+
+<!-- easy-pie-chart -->
+<script>
+    $(document).ready(function () {
+        $('.chart').easyPieChart({
+            easing: 'easeOutElastic',
+            delay: 3000,
+            barColor: '#26B99A',
+            trackColor: '#fff',
+            scaleColor: false,
+            lineWidth: 20,
+            trackWidth: 16,
+            lineCap: 'butt',
+            onStep: function (from, to, percent) {
+                $(this.el).find('.percent').text(Math.round(percent));
+            }
+        });
+
+    });
+</script>
+<!-- easy-pie-chart -->
+
+
+
+
+{% endblock %}

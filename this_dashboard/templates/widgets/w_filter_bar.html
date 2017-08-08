@@ -1,0 +1,225 @@
+{% load iif %}
+{% load iif %}{% load dashgent_filters %}
+
+<div class="filter-bar ">
+    <form method="get">
+        <input type="hidden" name="filter" value="active">
+                    <input type="hidden" id="fromdate" name="fromdate">
+                    <input type="hidden" id="todate" name="todate">
+                    <input type="hidden" id="daterange" name="daterange">
+        <div class="{{ 3|cw }}">
+            <select class="select2_single form-control" tabindex="-1" name="fprovincias">
+                <option></option>
+                <option value="prov1" {% if request.GET.fprovincias == "prov1" %}selected {% endif %}>Province 1
+                </option>
+                <option value="prov2" {% if request.GET.fprovincias == "prov2" %}selected {% endif %}>Province 2
+                </option>
+                <option value="prov3" {% if request.GET.fprovincias == "prov3" %}selected {% endif %}>Province 3
+                </option>
+            </select>
+        </div>
+        <div class="{{ 5|cw }}">
+            <div id="reportrange" class="pull-left"
+                 style="background: #fff; cursor: pointer; padding: 5px 10px; margin-left: 10px; border: 1px solid #ccc">
+                <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
+                <span></span> <b class="caret"></b>
+            </div>
+        </div>
+        <div class="{{ 4|cw }} pull-right .navbar-right"><input type="submit" value="Apply filter" class="btn btn-primary"/>
+
+            {% if request.GET.filter == "active" %}
+
+                <input type="submit" value="Clear filter" class="btn btn-default">
+
+            {% endif %}
+        </div>
+    </form>
+</div>
+<!--    <button class="btn btn-default" type="button" data-toggle="collapse" data-target="#filterwell" aria-expanded="false" aria-controls="filterWell">
+      Filter options
+    </button>-->
+
+
+<div class="modal fade bs-example-modal-md" id="{{ widget_id }}-modal-filter" tabindex="-1" role="dialog"
+     aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">Select filtering options</h4>
+            </div>
+            <div class="modal-body">
+                <form id="demo-form2" method="get" data-parsley-validate class="form-horizontal form-label-left">
+                    <input type="hidden" name="filter" value="active">
+                    <div class="form-group">
+                        <label class="control-label {{ 4|cw }}" for="first-name">Date range:
+                            <br>
+                            <small class="text-navy">Only data within this range will be included</small>
+                        </label>
+                        <div id="reportrange" class="pull-left"
+                             style="background: #fff; cursor: pointer; padding: 5px 10px; margin-left: 10px; border: 1px solid #ccc">
+                            <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
+                            <span></span> <b class="caret"></b>
+                        </div>
+                    </div>
+                    <!--                    <div class="form-group">
+                        <label class="col-md-3 col-sm-3 col-xs-12 control-label">Countries:
+                            <br>
+                            <small class="text-navy">Select the countries that you want to include</small>
+                        </label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <div class="checkbox">
+                                <label>
+                                    <input name="uganda" type="checkbox" class="flat"
+                                           {% iif request.GET.uganda "checked" "" %} {% ?: request.GET.filter "" "checked" %} value="1">
+                                    Uganda
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input name="kenya" type="checkbox" class="flat"
+                                           {% iif request.GET.kenya "checked" "" %} {% ?: request.GET.filter "" "checked" %} value="1"> Kenya
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input name="rwanda" type="checkbox" class="flat"
+                                           {% iif request.GET.rwanda "checked" "" %} {% ?: request.GET.filter "" "checked" %} value="1">
+                                    Rwanda
+                                </label>
+                            </div>
+                        </div>
+                    </div>-->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <input type="submit" value="Apply filter" class="btn btn-primary" data-dismiss2="modal"/>
+                    </div>
+                    <input type="hidden" id="fromdate" name="fromdate">
+                    <input type="hidden" id="todate" name="todate">
+                    <input type="hidden" id="daterange" name="daterange">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+
+    $(document).ready(function () {
+
+        $('input').iCheck({
+            checkboxClass: 'icheckbox_flat-green',
+            radioClass: 'iradio_flat-green',
+        });
+
+        var cb = function (start, end, label) {
+            $('#reportrange span').html(start.format('D MMMM YYYY') + ' - ' + end.format('D MMMM YYYY'));
+            $('#daterange').val(start.format('D MMMM YYYY') + ' - ' + end.format('D MMMM YYYY'));
+
+            $('#fromdate').val(start.format('YYYY-MM-DD'));
+            $('#todate').val(end.format('YYYY-MM-DD'));
+        };
+
+        {% if request.GET.fromdate %}
+            var start = new moment('{{ request.GET.fromdate }}');
+        {% endif %}
+        {% if not request.GET.fromdate %}
+            var start = new moment('2016-03-01');
+        {% endif %}
+        {% if request.GET.todate %}
+            var end = new moment('{{ request.GET.todate }}');
+        {% endif %}
+        {% if not request.GET.todate %}
+            var end = new moment();
+        {% endif %}
+
+
+        var optionSet1 = {
+            startDate: start,
+            endDate: end,
+            minDate: '01-01-2016',
+            maxDate: moment(),
+//            dateLimit: {
+//                days: 60
+//            },
+            showDropdowns: true,
+            showWeekNumbers: true,
+            timePicker: false,
+            timePickerIncrement: 1,
+            timePicker12Hour: true,
+            ranges: {
+                'Entire project period': ['01-03-2016', moment()],
+                'Today': [moment(), moment()],
+                'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                'This Month': [moment().startOf('month'), moment().endOf('month')],
+                'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+            },
+            opens: 'left',
+            buttonClasses: ['btn btn-default'],
+            applyClass: 'btn-small btn-primary',
+            cancelClass: 'btn-small',
+            format: 'DD/MM/YYYY',
+            separator: ' to ',
+            locale: {
+                applyLabel: 'Submit',
+                cancelLabel: 'Clear',
+                fromLabel: 'From',
+                toLabel: 'To',
+                customRangeLabel: 'Custom',
+                daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+                monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+                firstDay: 1
+            }
+        };
+        //$('#reportrange span').html(moment().subtract(29, 'days').format('D MMMM, YYYY') + ' - ' + moment().format('D MMMM, YYYY'));
+        $('#reportrange').daterangepicker(optionSet1, cb);
+        cb(start, end);
+
+
+        $('#reportrange').on('show.daterangepicker', function () {
+            console.log("show event fired");
+        });
+        $('#reportrange').on('hide.daterangepicker', function () {
+            console.log("hide event fired");
+        });
+        $('#reportrange').on('apply.daterangepicker', function (ev, picker) {
+            console.log("apply event fired, start/end dates are " + picker.startDate.format('MMMM D YYYY') + " to " + picker.endDate.format('MMMM D YYYY'));
+        });
+        $('#reportrange').on('cancel.daterangepicker', function (ev, picker) {
+            console.log("cancel event fired");
+        });
+        $('#options1').click(function () {
+            $('#reportrange').data('daterangepicker').setOptions(optionSet1, cb);
+        });
+        $('#options2').click(function () {
+            $('#reportrange').data('daterangepicker').setOptions(optionSet2, cb);
+        });
+        $('#destroy').click(function () {
+            $('#reportrange').data('daterangepicker').remove();
+        });
+    });
+</script>
+
+<!-- Select2 -->
+<script>
+    $(document).ready(function () {
+        $(".select2_single").select2({
+            placeholder: "Select a facility",
+            allowClear: true
+
+        });
+        $(".select2_group").select2({});
+        $(".select2_multiple").select2({
+            maximumSelectionLength: 4,
+            placeholder: "With Max Selection limit 4",
+            allowClear: true
+        });
+    });
+</script>
+<!-- /Select2 -->

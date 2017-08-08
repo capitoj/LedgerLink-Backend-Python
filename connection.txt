@@ -1,0 +1,21 @@
+ssh -N -L 3307:localhost:3306 fitti@ptbi.globalhealthapp.net
+
+MUST INSTALL MYSQL
+pip install mysql-python
+in your venv
+Open terminal
+
+macOS:
+brew install mysql
+
+
+We've installed your MySQL database without a root password. To secure it run:
+    mysql_secure_installation
+
+To connect run:
+    mysql -uroot
+
+To have launchd start mysql now and restart at login:
+  brew services start mysql
+Or, if you don't want/need a background service you can just run:
+  mysql.server start
