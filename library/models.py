@@ -17,12 +17,20 @@ class Author(models.Model):
     def __unicode__(self):
         return self.first_name + ' ' + self.last_name
 
+    class Meta:
+        default_permissions = ('add', 'change', 'delete', 'view')
+
+
 
 class Category(models.Model):
     name = models.CharField(max_length=128)
 
     def __unicode__(self):
         return self.name
+
+    class Meta:
+        default_permissions = ('add', 'change', 'delete', 'view')
+
 
 
 
@@ -40,4 +48,4 @@ class Book(models.Model):
         list_description = "List of books below."
         list_title = "Our books"
         list_hint = "Below is a list of the books that you can borrow."
-
+        default_permissions = ('add', 'change', 'delete', 'view')
