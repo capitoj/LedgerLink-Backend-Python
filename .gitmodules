@@ -1,9 +1,9 @@
 [submodule "xf_system"]
 	path = xf_system
 	url = https://bitbucket.org/informatics-hub/xf_system.git
-[submodule "xf_viz"]
-	path = uc_dashboards
-	url = https://bitbucket.org/informatics-hub/xf_viz.git
 [submodule "xf_crud"]
 	path = xf_crud
 	url = https://bitbucket.org/informatics-hub/xf_crud.git
+[submodule "uc_dashboards"]
+	path = uc_dashboards
+	url = https://bitbucket.org/informatics-hub/xf_viz
