@@ -2,7 +2,7 @@
 	path = xf_system
 	url = https://bitbucket.org/informatics-hub/xf_system.git
 [submodule "xf_viz"]
-	path = xf_viz
+	path = uc_dashboards
 	url = https://bitbucket.org/informatics-hub/xf_viz.git
 [submodule "xf_crud"]
 	path = xf_crud
