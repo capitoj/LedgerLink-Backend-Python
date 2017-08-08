@@ -1,3 +1,14 @@
+## Upgrading to 1.11
+
+Floppy forms: 
+brew install gdal --HEAD
+https://github.com/gregmuellegger/django-floppyforms/issues/172
+
+
+
+
+
+
 
 2016-11-01
 * Databases other than MySQL are now supposed, such as SqlLite3. It will just use the databases from the SETTINGS file. Make sure that the correct libraries are installed.
