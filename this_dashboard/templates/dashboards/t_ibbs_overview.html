@@ -2,7 +2,21 @@
 {% load dashgent_filters %}
 
 {% block filterbar %}
-{% include "t_block_ajxldr_filter_bar.html" with widget_slug="filter-bar" %}
+
+
+<div class="filter-bar ">
+    <form method="get">
+    {% include "t_block_ajxldr_filter_bar.html" with widget_slug="filter-province" %}
+<div class="{{ 4|cw }} pull-right .navbar-right"><input type="submit" value="Apply filter" class="btn btn-primary"/>
+
+            {% if request.GET.filter == "active" %}
+
+                <input type="submit" value="Clear filter" class="btn btn-default">
+
+            {% endif %}
+        </div>
+    </form>
+</div>
 {% endblock %}
 
 {% block main %}
