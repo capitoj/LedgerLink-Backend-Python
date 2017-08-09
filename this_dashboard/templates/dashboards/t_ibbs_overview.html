@@ -1,22 +1,10 @@
-{% extends "xf_base.html" %}
+{% extends "xf_viz_base.html" %}
 {% load dashgent_filters %}
 
-{% block filterbar %}
-
-
-<div class="filter-bar ">
-    <form method="get">
+{% block filterbar_main %}
     {% include "t_block_ajxldr_filter_bar.html" with widget_slug="filter-province" %}
-<div class="{{ 4|cw }} pull-right .navbar-right"><input type="submit" value="Apply filter" class="btn btn-primary"/>
-
-            {% if request.GET.filter == "active" %}
-
-                <input type="submit" value="Clear filter" class="btn btn-default">
-
-            {% endif %}
-        </div>
-    </form>
-</div>
+    {% include "t_block_ajxldr_filter_bar.html" with widget_slug="filter-date-range" %}
+    {% include "t_block_ajxldr_filter_bar.html" with widget_slug="filter-province" %}
 {% endblock %}
 
 {% block main %}

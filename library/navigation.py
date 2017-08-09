@@ -23,12 +23,12 @@ def load_navigation(sender, navigation_trees, request):
     add_navigation(navigation_tree, 'Library', "Books", "/library/category/", "fa-world", "Categories")
     add_navigation(navigation_tree, 'Library', "Authors", "/library/author/", "fa-world", "Authors")
 
-    add_navigation(navigation_tree, 'Header', "Section 1", "", "fa-world", "BBC")
-    add_navigation(navigation_tree, 'Header', "Section 1", "www.cnn.com", "fa-world", "CNN")
+    #add_navigation(navigation_tree, 'Header', "Section 1", "", "fa-world", "BBC")
+    #add_navigation(navigation_tree, 'Header', "Section 1", "www.cnn.com", "fa-world", "CNN")
 
-    add_navigation(navigation_tree, 'Header', "Section 1", "www.aljazeera.com", "fa-world", "Al Jazeera")
-    add_navigation(navigation_tree, 'Header', "Section 1", "www.bbc.com/international", "fa-world", "BBC International", "BBC")
-    add_navigation(navigation_tree, 'Header', "Section 1", "www.bbc.com/UK", "fa-world", "BBC UK", "BBC")
+    #add_navigation(navigation_tree, 'Header', "Section 1", "www.aljazeera.com", "fa-world", "Al Jazeera")
+    #add_navigation(navigation_tree, 'Header', "Section 1", "www.bbc.com/international", "fa-world", "BBC International", "BBC")
+    #add_navigation(navigation_tree, 'Header', "Section 1", "www.bbc.com/UK", "fa-world", "BBC UK", "BBC")
 
     return
 
