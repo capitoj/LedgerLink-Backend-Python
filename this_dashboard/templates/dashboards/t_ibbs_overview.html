@@ -1,8 +1,10 @@
-{% extends "xf_base.html" %}
+{% extends "xf_viz_base.html" %}
 {% load dashgent_filters %}
 
-{% block filterbar %}
-{% include "t_block_ajxldr_filter_bar.html" with widget_slug="filter-bar" %}
+{% block filterbar_main %}
+    {% include "t_block_ajxldr_filter_bar.html" with widget_slug="filter-province" %}
+    {% include "t_block_ajxldr_filter_bar.html" with widget_slug="filter-date-range" %}
+    {% include "t_block_ajxldr_filter_bar.html" with widget_slug="filter-province" %}
 {% endblock %}
 
 {% block main %}
