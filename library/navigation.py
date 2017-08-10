@@ -11,6 +11,8 @@ def load_navigation(sender, navigation_trees, request):
 
     # Each app can create one navigation tree. Navigation trees from multiple apps cannot be merged, by design
     # In this example, the app name is "library"
+    #if not navigation_trees.has_key("library"):
+    # PYTHON3 UPDATE
     if not "library" in navigation_trees:
         navigation_tree = []
         navigation_trees["library"] = navigation_tree
