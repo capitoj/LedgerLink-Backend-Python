@@ -1,8 +1,9 @@
 from django.conf.urls import url
 
+from this_dashboard.views import UDSDashboardPageView
 from this_dashboard.widget_views import widget_blank, widget_current_time, widget_preterm_tiles, WCurrentTime, \
     WDiagnosisList, WDiagnosisPie, WModesOfDeliveryPie
-from views import UDSDashboardPageView
+from . import views
 from django.conf import settings
 
 from . import views
