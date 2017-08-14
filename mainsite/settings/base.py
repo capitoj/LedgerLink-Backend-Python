@@ -47,8 +47,9 @@ PREREQ_APPS = [
 
 PROJECT_APPS = [
     'xf_crud',
-    'uc_dashboards',
     'xf_system',
+    'uc_dashboards',
+
     'crispy_forms',
     'library',
     'uc_dashboards.templatetags.getattribute',
