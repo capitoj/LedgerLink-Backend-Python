@@ -1,6 +1,13 @@
+import pymysql
+import sys
 
-# TODO: COMMENT OUT THIS FILE WHEN MAKING MIGRATIONS
-default_app_config = 'mainsite.apps.XFMainAppConfig'
+pymysql.install_as_MySQLdb()
+
+
+
+if len(sys.argv) > 1:
+    if sys.argv[1] == "runserver":
+        default_app_config = 'mainsite.apps.XFMainAppConfig'
 
 
 
