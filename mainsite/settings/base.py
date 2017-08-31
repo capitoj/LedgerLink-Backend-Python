@@ -22,6 +22,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'j^xyylufaz=la&&ko1+p0(qo*2-hxdo#$4zptq&z=ezn-ny3kn'
 
+
+
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -43,16 +46,17 @@ PREREQ_APPS = [
 ]
 
 PROJECT_APPS = [
-    'mainsite',
-    'library',
-    'uc_dashboards',
     'xf_crud',
+    'uc_dashboards',
     'xf_system',
     'crispy_forms',
+    'library',
     'uc_dashboards.templatetags.getattribute',
     'uc_dashboards.templatetags.dashgent_filters',
     'uc_dashboards.templatetags.iif',
     'this_dashboard',
+    'mainsite',
+
 ]
 
 INSTALLED_APPS = PREREQ_APPS + PROJECT_APPS

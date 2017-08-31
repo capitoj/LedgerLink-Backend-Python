@@ -1,3 +1,12 @@
+## 8 Aug 2017
+
+* Moved URLs for Library app inside the app itself using a urls.py file
+
+
+
+
+
+
 ## Upgrading to 1.11
 
 Floppy forms: 
