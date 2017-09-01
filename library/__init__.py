@@ -1,1 +1,1 @@
-import navigation
+from .navigation import *
