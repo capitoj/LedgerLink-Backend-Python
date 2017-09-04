@@ -26,4 +26,3 @@ class XFMainAppConfig(AppConfig):
             XFNavigationViewMixin.site_settings = settings[0]
 
         pass # startup code here
-

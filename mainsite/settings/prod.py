@@ -1,4 +1,4 @@
-from base import *
+from .base import *
 
 DEBUG=False
 
@@ -25,7 +25,7 @@ DATABASES = {
     }
 }
 
-STATIC_ROOT = '/var/www/ptbi-dashboards.globalhealthapp.net/static/'
+STATIC_ROOT = '/var/www/xf_sample.globalhealthapp.net/static/'
 
 STATIC_URL = '/static/'
 

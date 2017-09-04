@@ -97,7 +97,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'mainsite.wsgi.application'
 
-DASHGENT_PAGES = 'somedashboardpage'
+DASHGENT_PAGES = 'dashboards'
 
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases

@@ -1,4 +1,4 @@
-"""ucsf_dashboard URL Configuration
+"""xf_sample URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/1.9/topics/http/urls/
@@ -13,7 +13,6 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf import settings
 from django.conf.urls import include, url
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
@@ -22,7 +21,6 @@ from django.contrib.auth import views as auth_views
 urlpatterns = [
     url(r'^', include('this_dashboard.urls')),
     url(r'^', include('library.urls')),
-    #url(r'^dashboards/', include('uc_dashboards.urls')),
     url(r'^dashboards/login$', auth_views.login),
     url(r'^', include('uc_dashboards.urls')),
     url(r'^admin/', admin.site.urls),
