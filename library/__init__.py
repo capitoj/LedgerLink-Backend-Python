@@ -1,1 +1,1 @@
-from .navigation import *
+from . import navigation
