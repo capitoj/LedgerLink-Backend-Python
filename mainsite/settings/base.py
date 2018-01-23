@@ -49,7 +49,6 @@ PROJECT_APPS = [
     'xf_crud',
     'xf_system',
     'uc_dashboards',
-
     'crispy_forms',
     'library',
     'uc_dashboards.templatetags.getattribute',
@@ -57,6 +56,7 @@ PROJECT_APPS = [
     'uc_dashboards.templatetags.iif',
     'this_dashboard',
     'mainsite',
+    'modeltranslation',
 
 ]
 
@@ -179,3 +179,13 @@ STATICFILES_FINDERS = (
 )
 
 INTERNAL_IPS = ('127.0.0.1',)
+
+
+gettext = lambda s: s
+LANGUAGES = (
+    ('en-uk', gettext('English')),
+    ('pt-pt', gettext('Portuguese')),
+    ('nl-nl', gettext('Dutch')),
+)
+MODELTRANSLATION_DEFAULT_LANGUAGE = 'en-uk'
+LANGUAGE_COOKIE_NAME = "lc"
