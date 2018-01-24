@@ -13,8 +13,7 @@ class Author(models.Model):
     first_name = models.CharField(max_length=128)
     last_name = models.CharField(max_length=128)
 
-
-    def __unicode__(self):
+    def __str__(self):
         return self.first_name + ' ' + self.last_name
 
     class Meta:
@@ -25,7 +24,7 @@ class Author(models.Model):
 class Category(models.Model):
     name = models.CharField(max_length=128)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     class Meta:
@@ -40,7 +39,7 @@ class Book(models.Model):
     category = models.ForeignKey('Category', blank=True, null=True)
     author = models.ForeignKey('Author', blank=True, null=True, on_delete=models.SET_NULL)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.title
 
     class Meta:
@@ -49,3 +48,4 @@ class Book(models.Model):
         list_title = "Our books"
         list_hint = "Below is a list of the books that you can borrow."
         default_permissions = ('add', 'change', 'delete', 'view')
+        search_field = "title"
