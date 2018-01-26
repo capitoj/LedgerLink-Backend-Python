@@ -60,11 +60,12 @@ class Book(models.Model):
         if self.title.find("23") > 0:
             validation_errors['title'] = ValidationError("Can't have the word 23 in the title.")
 
-        if self.publication_date > datetime.datetime.today().date():
-            validation_errors['publication_date'] = ValidationError("Cannot be in the future.")
+        if self.publication_date:
+            if self.publication_date > datetime.datetime.today().date():
+                validation_errors['publication_date'] = ValidationError("Cannot be in the future.")
 
-        if self.publication_date < datetime.date(1900, 1, 1):
-            validation_errors['publication_date'] = ValidationError("Try a date from 1900 onwards.")
+            if self.publication_date < datetime.date(1900, 1, 1):
+                validation_errors['publication_date'] = ValidationError("Try a date from 1900 onwards.")
 
         if validation_errors:
             raise ValidationError(validation_errors)
