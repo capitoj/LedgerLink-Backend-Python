@@ -14,3 +14,4 @@ urlpatterns += crudurl("library", "author", Author, None)
 urlpatterns += crudurl("library", "category", Category, None)
 
 
+

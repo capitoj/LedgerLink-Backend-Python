@@ -16,11 +16,13 @@ class BookForm(XFModelForm):
 
 #        # TODO: Make this work
         #widgets = {
-        #    'enrollment_date': DateTimePicker,
+        #    'publication_date': forms.SplitDateTimeWidget
         #}
+
 
         title = "Booooooooook me"
 
     def __init__(self, *args, **kwargs):
         super(BookForm, self).__init__(*args, **kwargs)
         self.fields['title'].widget.attrs['placeholder'] = "Enter the book's title"
+        self.fields['publication_date'].widget.attrs['class'] = "date-field datepicker"
