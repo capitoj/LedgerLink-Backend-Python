@@ -1,7 +1,8 @@
 from django.core.exceptions import ValidationError
 
 from library.models import Book
-from xf_crud.generic_forms import XFModelForm, XFModelList
+from xf_crud.generic_forms import XFModelForm
+from xf_crud.generic_lists import XFModelList
 
 from crispy_forms.layout import Layout, Div, Field
 from crispy_forms.bootstrap import  TabHolder, Tab
@@ -53,10 +54,34 @@ class SmallBookForm(XFModelForm):
 
 class SmallBookList(XFModelList):
 
-    class Meta:
-        list_field_list = (("title",))
-        list_description = "List of small books below."
-        list_title = "Our smallbooks"
-        list_hint = "Below is a list of the small books that you can borrow."
-        default_permissions = ('add', 'change', 'delete', 'view')
-        search_field = "title"
+    def __init__(self, model):
+        super(SmallBookList, self).__init__(model)
+        self.list_field_list = (("title",))
+        self.list_description = "List of small books below."
+        self.list_title = "Our smallbooks"
+        self.list_hint = "Below is a list of the small books that you can borrow."
+        self.default_permissions = ('add', 'change', 'delete', 'view')
+        self.search_field = "title"
+        self.preset_filters = {
+            '': 'All',
+            'recent': 'Only with "Ze"',
+        }
+
+
+    def get_queryset(self, search_string, model, preset_filter):
+
+        if preset_filter == 'recent':
+            return Book.objects.filter(title__contains='Ze').filter(title__contains=search_string)
+        else:
+            return super(SmallBookList, self).get_queryset(search_string, model, preset_filter)
+
+class BookList(XFModelList):
+
+    def __init__(self, model):
+        super(BookList, self).__init__(model)
+        self.form_field_list = (("title", "publication_date", "category", "author"))
+        self.list_description = "List of books below."
+        self.list_title = "Our books"
+        self.list_hint = "Below is a list of the books that you can borrow."
+        self.default_permissions = ('add', 'change', 'delete', 'view')
+        self.search_field = "title"

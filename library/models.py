@@ -45,13 +45,6 @@ class Book(models.Model):
     def __str__(self):
         return self.title
 
-    class Meta:
-        form_field_list = (("title", "publication_date", "category", "author"))
-        list_description = "List of books below."
-        list_title = "Our books"
-        list_hint = "Below is a list of the books that you can borrow."
-        default_permissions = ('add', 'change', 'delete', 'view')
-        search_field = "title"
 
     def clean(self):
 

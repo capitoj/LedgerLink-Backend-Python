@@ -22,6 +22,10 @@ def load_navigation(sender, navigation_trees, request):
     navigation_tree = navigation_trees["library"]
 
     add_navigation(navigation_tree, 'Library', "Books", "/library/book/", "fa-world", "Books")
+    add_navigation(navigation_tree, 'Library', "Books", "/library/smallbook/", "fa-world", "Small books")
+    add_navigation(navigation_tree, 'Library', "Books", "/library/smallbook/", "fa-world", "All", "Small books")
+    add_navigation(navigation_tree, 'Library', "Books", "/library/smallbook/recent", "fa-world", "With ZE only",
+                   "Small books")
     add_navigation(navigation_tree, 'Library', "Books", "/library/category/", "fa-world", "Categories")
     add_navigation(navigation_tree, 'Library', "Authors", "/library/author/", "fa-world", "Authors")
 
