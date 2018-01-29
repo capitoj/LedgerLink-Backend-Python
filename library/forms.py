@@ -1,3 +1,4 @@
+from crispy_forms.helper import FormHelper
 from django.core.exceptions import ValidationError
 
 from library.models import Book
@@ -16,19 +17,23 @@ class BookForm(XFModelForm):
     class Meta:
         model = Book
         fields = ["title", "author", "publication_date", "category"]
-
-#        # TODO: Make this work
-        #widgets = {
-        #    'publication_date': forms.SplitDateTimeWidget
-        #}
-
-
         title = "Booooooooook me"
 
     def __init__(self, *args, **kwargs):
         super(BookForm, self).__init__(*args, **kwargs)
         self.fields['title'].widget.attrs['placeholder'] = "Enter the book's title"
         self.fields['publication_date'].widget.attrs['class'] = "date-field datepicker"
+
+        self.helper.layout = Layout(
+            TabHolder(
+                Tab('Book',
+                    Field('title', 'publication_date',)
+                ),
+                Tab('Author',
+                    Field('author', 'category', )
+                )
+            )
+        )
 
 
 class SmallBookForm(XFModelForm):
