@@ -30,12 +30,14 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+HOME_PAGE = "/dashboards/home/overview/"
 LOGIN_URL = "/dashboards/0/home/welcome/"
 LOGIN_REDIRECT_URL = "/"
 
 # Application definition
 
 PREREQ_APPS = [
+    'modeltranslation',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -56,7 +58,7 @@ PROJECT_APPS = [
     'uc_dashboards.templatetags.iif',
     'this_dashboard',
     'mainsite',
-    'modeltranslation',
+
 
 ]
 
@@ -185,9 +187,12 @@ INTERNAL_IPS = ('127.0.0.1',)
 
 gettext = lambda s: s
 LANGUAGES = (
-    ('en-uk', gettext('English')),
-    ('pt-pt', gettext('Portuguese')),
-    ('nl-nl', gettext('Dutch')),
+    ('en-gb', gettext('English')),
+    ('pt', gettext('Portuguese')),
+    ('nl', gettext('Dutch')),
 )
-MODELTRANSLATION_DEFAULT_LANGUAGE = 'en-uk'
+
+MODELTRANSLATION_DEFAULT_LANGUAGE = 'en-gb'
+
 LANGUAGE_COOKIE_NAME = "lc"
+
