@@ -66,7 +66,7 @@ CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 INSTALLED_APPS = PREREQ_APPS + PROJECT_APPS
 
-MIDDLEWARE_CLASSES = [
+MIDDLEWARE = [
     #'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -74,9 +74,11 @@ MIDDLEWARE_CLASSES = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'library.middleware.LibraryMiddleware',
 ]
+
+
 
 ROOT_URLCONF = 'mainsite.urls'
 
@@ -94,6 +96,7 @@ TEMPLATES = [
 #                'django.template.context.static',
                 'django.contrib.messages.context_processors.messages',
                 'uc_dashboards.context_processors.include_login_form',
+                'library.middleware.load_app_assets_in_context',
             ],
         },
     },
@@ -102,6 +105,9 @@ TEMPLATES = [
 WSGI_APPLICATION = 'mainsite.wsgi.application'
 
 DASHGENT_PAGES = 'dashboards'
+
+EXTRA_JS_ASSETS = ('library_js',)
+EXTRA_CSS_ASSETS = ('library_css',)
 
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
