@@ -90,3 +90,4 @@ class BookList(XFModelList):
         self.list_hint = "Below is a list of the books that you can borrow."
         self.default_permissions = ('add', 'change', 'delete', 'view')
         self.search_field = "title"
+        self.add_javascript("library.js")
