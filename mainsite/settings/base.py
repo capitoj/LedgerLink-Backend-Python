@@ -30,12 +30,14 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+HOME_PAGE = "/dashboards/home/overview/"
 LOGIN_URL = "/dashboards/0/home/welcome/"
 LOGIN_REDIRECT_URL = "/"
 
 # Application definition
 
 PREREQ_APPS = [
+    'modeltranslation',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -49,7 +51,6 @@ PROJECT_APPS = [
     'xf_crud',
     'xf_system',
     'uc_dashboards',
-
     'crispy_forms',
     'library',
     'uc_dashboards.templatetags.getattribute',
@@ -58,11 +59,14 @@ PROJECT_APPS = [
     'this_dashboard',
     'mainsite',
 
+
 ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 INSTALLED_APPS = PREREQ_APPS + PROJECT_APPS
 
-MIDDLEWARE_CLASSES = [
+MIDDLEWARE = [
     #'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -70,9 +74,11 @@ MIDDLEWARE_CLASSES = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'library.middleware.LibraryMiddleware',
 ]
+
+
 
 ROOT_URLCONF = 'mainsite.urls'
 
@@ -90,6 +96,7 @@ TEMPLATES = [
 #                'django.template.context.static',
                 'django.contrib.messages.context_processors.messages',
                 'uc_dashboards.context_processors.include_login_form',
+                'library.middleware.load_app_assets_in_context',
             ],
         },
     },
@@ -98,6 +105,9 @@ TEMPLATES = [
 WSGI_APPLICATION = 'mainsite.wsgi.application'
 
 DASHGENT_PAGES = 'dashboards'
+
+EXTRA_JS_ASSETS = ('library_js',)
+EXTRA_CSS_ASSETS = ('library_css',)
 
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
@@ -179,3 +189,16 @@ STATICFILES_FINDERS = (
 )
 
 INTERNAL_IPS = ('127.0.0.1',)
+
+
+gettext = lambda s: s
+LANGUAGES = (
+    ('en-gb', gettext('English')),
+    ('pt', gettext('Portuguese')),
+    ('nl', gettext('Dutch')),
+)
+
+MODELTRANSLATION_DEFAULT_LANGUAGE = 'en-gb'
+
+LANGUAGE_COOKIE_NAME = "lc"
+

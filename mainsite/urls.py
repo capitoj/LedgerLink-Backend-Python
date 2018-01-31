@@ -24,5 +24,6 @@ urlpatterns = [
     url(r'^dashboards/login$', auth_views.login),
     url(r'^', include('uc_dashboards.urls')),
     url(r'^admin/', admin.site.urls),
+    url(r'^i18n/', include('django.conf.urls.i18n')),
 ]
 
