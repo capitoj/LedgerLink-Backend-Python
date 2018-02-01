@@ -2,14 +2,14 @@ from crispy_forms.helper import FormHelper
 from django.core.exceptions import ValidationError
 
 from library.models import Book
-from xf_crud.generic_forms import XFModelForm
-from xf_crud.generic_lists import XFModelList
 
 from crispy_forms.layout import Layout, Div, Field
 from crispy_forms.bootstrap import  TabHolder, Tab
 from django import forms
 from django.core.urlresolvers import reverse
 
+from xf_crud.model_forms import XFModelForm
+from xf_crud.model_lists import XFModelList
 
 
 class BookForm(XFModelForm):
@@ -65,7 +65,7 @@ class SmallBookList(XFModelList):
         self.list_description = "List of small books below."
         self.list_title = "Our smallbooks"
         self.list_hint = "Below is a list of the small books that you can borrow."
-        self.default_permissions = ('add', 'change', 'delete', 'view')
+        self.supported_crud_operations.append('search')
         self.search_field = "title"
         self.preset_filters = {
             '': 'All',
@@ -88,6 +88,6 @@ class BookList(XFModelList):
         self.list_description = "List of books below."
         self.list_title = "Our books"
         self.list_hint = "Below is a list of the books that you can borrow."
-        self.default_permissions = ('add', 'change', 'delete', 'view')
+        self.supported_crud_operations.append('search')
         self.search_field = "title"
         self.add_javascript("library.js")

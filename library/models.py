@@ -45,12 +45,15 @@ class Book(models.Model):
     def __str__(self):
         return self.title
 
+    class Meta:
+        default_permissions = ('add', 'change', 'delete', 'view')
+
 
     def clean(self):
 
         validation_errors = {}
 
-        if self.title.find("23") > 0:
+        if self.title.find("23") >= 0:
             validation_errors['title'] = ValidationError("Can't have the word 23 in the title.")
 
         if self.publication_date:
