@@ -23,6 +23,8 @@ class BookForm(XFModelForm):
         super(BookForm, self).__init__(*args, **kwargs)
         self.fields['title'].widget.attrs['placeholder'] = "Enter the book's title"
         self.fields['publication_date'].widget.attrs['class'] = "date-field datepicker"
+        self.add_javascript("library.js")
+
 
         self.helper.layout = Layout(
             TabHolder(
