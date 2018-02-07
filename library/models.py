@@ -20,7 +20,7 @@ class Author(models.Model):
         return self.first_name + ' ' + self.last_name
 
     class Meta:
-        default_permissions = ('add', 'change', 'delete', 'view')
+        default_permissions = ('add', 'change', 'delete', 'view', 'list')
 
 
 
@@ -31,7 +31,7 @@ class Category(models.Model):
         return self.name
 
     class Meta:
-        default_permissions = ('add', 'change', 'delete', 'view')
+        default_permissions = ('add', 'change', 'delete', 'view', 'list')
 
 
 
@@ -46,7 +46,7 @@ class Book(models.Model):
         return self.title
 
     class Meta:
-        default_permissions = ('add', 'change', 'delete', 'view')
+        default_permissions = ('add', 'change', 'delete', 'view', 'list')
 
 
     def clean(self):
