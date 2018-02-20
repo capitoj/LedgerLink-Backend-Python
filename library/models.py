@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 import datetime
 
 from django.core.exceptions import ValidationError
+from django.core.validators import RegexValidator
 from django.db import models
 
 from django.contrib.auth.models import User, Group
@@ -65,3 +66,28 @@ class Book(models.Model):
 
         if validation_errors:
             raise ValidationError(validation_errors)
+
+
+class Library(models.Model):
+    name = models.CharField(max_length=128, blank=False, null=False)
+
+    def __str__(self):
+        return self.name
+
+
+class BookInstance(models.Model):
+    serial_number = models.CharField(max_length=128,
+                                     blank=False, null=False,
+                                     unique=True,
+                                     validators=[
+                                         RegexValidator(
+                                             regex=r'\d{3}-\d{4}?$',
+                                             message="Please use xxx-xxxx",
+                                         )
+                                     ])
+    book = models.ForeignKey('Book', blank=False, null=True, related_name='instances')
+    library = models.ForeignKey('Library', blank=False, null=True, related_name='book_instances')
+
+    def __str__(self):
+        return "%s (%s)" % (self.serial_number, self.book.title)
+

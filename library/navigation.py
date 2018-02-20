@@ -26,8 +26,11 @@ def load_navigation(sender, navigation_trees, request):
     add_navigation(navigation_tree, 'Library', "Books", "/library/smallbook/", "fa-world", "All", "Small books")
     add_navigation(navigation_tree, 'Library', "Books", "/library/smallbook/recent", "fa-world", "With ZE only",
                    "Small books")
-    add_navigation(navigation_tree, 'Library', "Books", "/library/category/", "fa-world", "Categories")
+    add_navigation(navigation_tree, 'Library', "Books", "/library/book-instances/", "fa-world", "Instances")
+    add_navigation(navigation_tree, 'Library', "Maintenance", "/library/category/", "fa-world", "Categories")
+
     add_navigation(navigation_tree, 'Library', "Authors", "/library/author/", "fa-world", "Authors")
+    add_navigation(navigation_tree, 'Library', "Maintenance", "/library/library/", "fa-world", "Libraries")
 
     #add_navigation(navigation_tree, 'Header', "Section 1", "", "fa-world", "BBC")
     #add_navigation(navigation_tree, 'Header', "Section 1", "www.cnn.com", "fa-world", "CNN")
