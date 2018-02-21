@@ -15,8 +15,8 @@ from xf_crud.model_lists import XFModelList
 class BookForm(XFModelForm):
     class Meta:
         model = Book
-        fields = ["title", "author", "publication_date", "category"]
-        title = "Booooooooook me"
+        fields = ["title", "author", "publication_date", "category",]
+        title = "Book me"
 
     def __init__(self, *args, **kwargs):
         super(BookForm, self).__init__(*args, **kwargs)
@@ -31,7 +31,10 @@ class BookForm(XFModelForm):
                     ),
                 Tab('Author',
                     Field('author', 'category', )
-                    )
+                    ),
+                Tab('Books',
+                    Field('instances', )
+                    ),
             )
         )
 
