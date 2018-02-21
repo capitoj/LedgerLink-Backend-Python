@@ -22,6 +22,7 @@ class XFMainAppConfig(AppConfig):
             XFNavigationViewMixin.site_settings.site_title = "XF"
             XFNavigationViewMixin.site_settings.settings_key = "undefined"
             XFNavigationViewMixin.site_settings.site_icon = "fa-globe"
+            XFNavigationViewMixin.site_settings.footer_details = "'institution_name':'XF',"
         else:
             XFNavigationViewMixin.site_settings = settings[0]
 
