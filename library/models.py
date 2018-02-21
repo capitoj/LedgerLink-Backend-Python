@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 import datetime
 
 from django.core.exceptions import ValidationError
+from django.core.validators import RegexValidator
 from django.db import models
 
 from django.contrib.auth.models import User, Group
@@ -20,7 +21,7 @@ class Author(models.Model):
         return self.first_name + ' ' + self.last_name
 
     class Meta:
-        default_permissions = ('add', 'change', 'delete', 'view')
+        default_permissions = ('add', 'change', 'delete', 'view', 'list')
 
 
 
@@ -31,7 +32,7 @@ class Category(models.Model):
         return self.name
 
     class Meta:
-        default_permissions = ('add', 'change', 'delete', 'view')
+        default_permissions = ('add', 'change', 'delete', 'view', 'list')
 
 
 
@@ -45,12 +46,15 @@ class Book(models.Model):
     def __str__(self):
         return self.title
 
+    class Meta:
+        default_permissions = ('add', 'change', 'delete', 'view', 'list')
+
 
     def clean(self):
 
         validation_errors = {}
 
-        if self.title.find("23") > 0:
+        if self.title.find("23") >= 0:
             validation_errors['title'] = ValidationError("Can't have the word 23 in the title.")
 
         if self.publication_date:
@@ -62,3 +66,28 @@ class Book(models.Model):
 
         if validation_errors:
             raise ValidationError(validation_errors)
+
+
+class Library(models.Model):
+    name = models.CharField(max_length=128, blank=False, null=False)
+
+    def __str__(self):
+        return self.name
+
+
+class BookInstance(models.Model):
+    serial_number = models.CharField(max_length=128,
+                                     blank=False, null=False,
+                                     unique=True,
+                                     validators=[
+                                         RegexValidator(
+                                             regex=r'\d{3}-\d{4}?$',
+                                             message="Please use xxx-xxxx",
+                                         )
+                                     ])
+    book = models.ForeignKey('Book', blank=False, null=True, related_name='instances')
+    library = models.ForeignKey('Library', blank=False, null=True, related_name='book_instances')
+
+    def __str__(self):
+        return "%s (%s)" % (self.serial_number, self.book.title)
+
