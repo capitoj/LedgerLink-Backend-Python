@@ -6,7 +6,7 @@ pymysql.install_as_MySQLdb()
 
 
 if len(sys.argv) > 1:
-    if sys.argv[1] != "makemigrations" and sys.argv[1] != "migrate":
+    if sys.argv[1] != "makemigrations" and sys.argv[1] != "migrate" and sys.argv[1] != "test2":
         default_app_config = 'mainsite.apps.XFMainAppConfig'
 
 
