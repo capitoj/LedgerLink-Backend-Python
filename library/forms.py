@@ -10,6 +10,7 @@ from django.core.urlresolvers import reverse
 
 from xf_crud.model_forms import XFModelForm
 from xf_crud.model_lists import XFModelList
+from xf_crud.xf_classes import XFUIAction, XFActionType
 
 
 class BookForm(XFModelForm):
@@ -72,25 +73,31 @@ class SmallBookList(XFModelList):
             'recent': 'Only with "Ze"',
         }
 
-    def get_queryset(self, search_string, model, preset_filter, kwargs):
+    def get_queryset(self, search_string, model, preset_filter, view_kwargs=None):
 
         if preset_filter == 'recent':
             return Book.objects.filter(title__contains='Ze').filter(title__contains=search_string)
         else:
-            return super().get_queryset(search_string, model, preset_filter, **kwargs)
+            return super().get_queryset(search_string, model, preset_filter, view_kwargs)
 
 
 
 class BookList(XFModelList):
     def __init__(self, model):
         super(BookList, self).__init__(model)
-        self.form_field_list = ("title", "publication_date", "category", "author")
+        self.list_field_list = ("title", "category", "author", "publication_date", "instance_count")
         self.list_description = "List of books below."
         self.list_title = "Our books"
         self.list_hint = "Below is a list of the books that you can borrow."
         self.supported_crud_operations.append('search')
         self.search_field = "title"
         self.add_javascript("library.js")
+
+        # This makes a row clickable action and takes you to the book overview page (where you can see instances)
+        self.row_default_action = XFUIAction('overview', 'View books', 'view', use_ajax=False)
+
+        # Sample: create a small book action – creates an extra button
+        self.screen_actions.append(XFUIAction('new_small_book', 'Create small book', 'new', url_name='library_smallbook_new'))
 
 
 class ReadOnlyBookList(BookList):
@@ -99,3 +106,9 @@ class ReadOnlyBookList(BookList):
         self.supported_crud_operations.remove('delete')
         self.supported_crud_operations.remove('change')
         self.supported_crud_operations.remove('add')
+
+class AuthorList(XFModelList):
+
+    def __init__(self, model):
+        super().__init__(model)
+        self.row_default_action = XFUIAction('overview', 'View books', 'view', use_ajax=False)

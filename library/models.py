@@ -43,6 +43,12 @@ class Book(models.Model):
     category = models.ForeignKey('Category', blank=True, null=True)
     author = models.ForeignKey('Author', blank=True, null=True, on_delete=models.SET_NULL)
 
+    @property
+    def instance_count(self):
+        return self.instances.count()
+
+
+
     def __str__(self):
         return self.title
 
@@ -66,6 +72,8 @@ class Book(models.Model):
 
         if validation_errors:
             raise ValidationError(validation_errors)
+
+
 
 
 class Library(models.Model):

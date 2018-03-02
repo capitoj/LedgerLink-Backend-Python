@@ -3,7 +3,7 @@ from django.views.generic import TemplateView, RedirectView
 from django.conf import settings
 from django.contrib.auth import views as auth_views
 
-from library.forms import BookForm, SmallBookForm, SmallBookList, BookList, ReadOnlyBookList
+from library.forms import BookForm, SmallBookForm, SmallBookList, BookList, ReadOnlyBookList, AuthorList
 from library.models import Book, Author, Category, BookInstance, Library
 from library.views import XFMasterChildView, BookMasterChildView, AuthorMasterChildView
 from xf_crud.crud_url_builder import XFCrudURLBuilder
@@ -36,6 +36,6 @@ urlpatterns += crudurl("library", "book-instances", BookInstance, None)
 urlpatterns += crudurl("library", "book", Book, BookForm, BookList)
 urlpatterns += crudurl("library/view", "book", Book, BookForm, ReadOnlyBookList)
 urlpatterns += crudurl("library", "smallbook", Book, SmallBookForm, SmallBookList)
-urlpatterns += crudurl("library", "author", Author, None)
+urlpatterns += crudurl("library", "author", Author, None, AuthorList)
 urlpatterns += crudurl("library", "category", Category, None)
 urlpatterns += crudurl("library", "library", Library, None)

@@ -7,7 +7,7 @@ from library.models import Book
 from library.tests.xf_crud_tests.mixins import CreateUsersMixin
 from xf_crud.generic_crud_views import XFCreateView
 from xf_crud.model_lists import XFModelList
-from xf_crud.xf_classes import XFActionType, XFModelListAction, XFUIBuilder
+from xf_crud.xf_classes import XFActionType, XFUIAction, XFUIBuilder
 from xf_crud.xf_crud_helpers import crudurl
 
 
