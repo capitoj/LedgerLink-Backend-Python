@@ -44,6 +44,8 @@ PREREQ_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'ckeditor',
+    'ckeditor_uploader',
     #'debug_toolbar',
 ]
 
@@ -116,7 +118,7 @@ EXTRA_CSS_ASSETS = ('library_css',)
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, '../db.sqlite3'),
+        'NAME': os.path.join(BASE_DIR, '../default.sqlite3'),
     },
 #    'some_my_sql': {
 #        'NAME': 'mysql_db',
@@ -172,6 +174,18 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+MEDIA_ROOT = '/media/'
+MEDIA_URL = '/media/'
+CKEDITOR_UPLOAD_PATH = ''
+CKEDITOR_JQUERY_URL = os.path.join(STATIC_URL, 'gla/vendors/jquery/dist/jquery.min.js')
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',
+        'skin': 'moono-lisa',
+        'width': '100%'
+    },
+}
+
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
 )
@@ -202,4 +216,3 @@ LANGUAGES = (
 MODELTRANSLATION_DEFAULT_LANGUAGE = 'en-gb'
 
 LANGUAGE_COOKIE_NAME = "lc"
-
