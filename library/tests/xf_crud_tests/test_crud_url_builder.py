@@ -3,6 +3,7 @@ import unittest
 
 from library.forms import BookForm, BookList
 from library.models import Book
+from library.views import BookMasterChildView
 from xf_crud.crud_url_builder import XFCrudURLBuilder
 from xf_crud.xf_crud_helpers import crudurl
 
@@ -23,7 +24,7 @@ class TestCrudURLBuilder(SimpleTestCase):
 
     def test_overview_URL(self):
 
-        url = self.crud_url_builder.get_overview_url(form_class_type=BookForm)
+        url = self.crud_url_builder.get_overview_url(view_class_type=BookMasterChildView)
         self.assertEqual('library_book_overview', url.name)
         self.assertEqual('^library/book/(?P<pk>[-\w]+)/overview', url.regex.pattern)
 
@@ -62,5 +63,5 @@ class TestCrudURLBuilder(SimpleTestCase):
     def test_list_related_URL(self):
 
         url = self.crud_url_builder.get_list_related_url(list_class_type=BookList, url_related_name="by-author")
-        self.assertEqual('library_book_list_related', url.name)
+        self.assertEqual('library_book_list_by-author', url.name)
         self.assertEqual('^library/book/by-author/(?P<related_fk>[-\w]+)', url.regex.pattern)

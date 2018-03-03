@@ -24,6 +24,9 @@ class BookForm(XFModelForm):
         self.fields['publication_date'].widget.attrs['class'] = "date-field datepicker"
         self.add_javascript("library.js")
 
+        # Example of pre-setting a value self.initial = {'author':'1'}
+        # self.fields['author'].widget.attrs['readonly'] = True
+
         self.helper.layout = Layout(
             TabHolder(
                 Tab('Book',
@@ -31,9 +34,6 @@ class BookForm(XFModelForm):
                     ),
                 Tab('Author',
                     Field('author', 'category', )
-                    ),
-                Tab('Books',
-                    Field('instances', )
                     ),
             )
         )
@@ -72,12 +72,13 @@ class SmallBookList(XFModelList):
             'recent': 'Only with "Ze"',
         }
 
-    def get_queryset(self, search_string, model, preset_filter):
+    def get_queryset(self, search_string, model, preset_filter, kwargs):
 
         if preset_filter == 'recent':
             return Book.objects.filter(title__contains='Ze').filter(title__contains=search_string)
         else:
-            return super(SmallBookList, self).get_queryset(search_string, model, preset_filter)
+            return super().get_queryset(search_string, model, preset_filter, **kwargs)
+
 
 
 class BookList(XFModelList):

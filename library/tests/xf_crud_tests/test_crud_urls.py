@@ -6,7 +6,7 @@ from library.models import Book
 from xf_crud.xf_crud_helpers import crudurl
 
 
-class TestCrudURLs(unittest.TestCase):
+class TestCrudURLs(SimpleTestCase):
 
     def __init__(self, *args, **kwargs):
         super(TestCrudURLs, self).__init__(*args, **kwargs)
