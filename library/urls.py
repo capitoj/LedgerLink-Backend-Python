@@ -3,8 +3,9 @@ from django.views.generic import TemplateView, RedirectView
 from django.conf import settings
 from django.contrib.auth import views as auth_views
 
-from library.forms import BookForm, SmallBookForm, SmallBookList, BookList, ReadOnlyBookList, AuthorList
-from library.models import Book, Author, Category, BookInstance, Library
+from library.forms import BookForm, SmallBookForm, SmallBookList, BookList, ReadOnlyBookList, AuthorList, CheckoutList, \
+    WideBookForm
+from library.models import Book, Author, Category, BookInstance, Library, Client, Checkout, Payment
 from library.views import XFMasterChildView, BookMasterChildView, AuthorMasterChildView
 from xf_crud.crud_url_builder import XFCrudURLBuilder
 from xf_crud.generic_crud_views import XFDetailView
@@ -27,7 +28,8 @@ urlpatterns += [book_instance_builder.get_list_related_url(url_related_name="by-
 
 # ### MASTER CHILD PAGES
 # This part builds the master-child pages. These two classes must be written as part of your app.
-urlpatterns += [book_builder.get_overview_url(view_class_type=BookMasterChildView)]
+# Specify a form class if you want to have a special form on the top of your screen
+urlpatterns += [book_builder.get_overview_url(form_class_type=WideBookForm, view_class_type=BookMasterChildView)]
 urlpatterns += [author_builder.get_overview_url(view_class_type=AuthorMasterChildView)]
 
 # ### BASIC CRUD Pages
@@ -39,3 +41,7 @@ urlpatterns += crudurl("library", "smallbook", Book, SmallBookForm, SmallBookLis
 urlpatterns += crudurl("library", "author", Author, None, AuthorList)
 urlpatterns += crudurl("library", "category", Category, None)
 urlpatterns += crudurl("library", "library", Library, None)
+urlpatterns += crudurl("library", "client", Client, None)
+urlpatterns += crudurl("library", "checkout", Checkout, None, CheckoutList)
+urlpatterns += crudurl("library", "payment", Payment, None)
+

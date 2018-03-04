@@ -3,14 +3,14 @@ from django.core.exceptions import ValidationError
 
 from library.models import Book
 
-from crispy_forms.layout import Layout, Div, Field
+from crispy_forms.layout import Layout, Div, Field, HTML
 from crispy_forms.bootstrap import TabHolder, Tab
 from django import forms
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse, resolve
 
 from xf_crud.model_forms import XFModelForm
 from xf_crud.model_lists import XFModelList
-from xf_crud.xf_classes import XFUIAction, XFActionType
+from xf_crud.xf_classes import XFUIAction, ACTION_RELATED_INSTANCE
 
 
 class BookForm(XFModelForm):
@@ -38,6 +38,23 @@ class BookForm(XFModelForm):
                     ),
             )
         )
+
+class WideBookForm(BookForm):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper.form_class = None
+        self.helper.layout = Layout(
+            Div(
+                Div(HTML("<p>This is a fully working overview page. The form displayed here is a 'WideBookForm'</p>"), css_class='col-md-12')
+                , css_class='row'
+            ),
+            Div(
+                Div('title', 'publication_date',css_class='col-md-6'),
+                Div('author', 'category', css_class='col-md-6'), css_class='row'
+            ),
+        )
+
 
 
 class SmallBookForm(XFModelForm):
@@ -99,6 +116,13 @@ class BookList(XFModelList):
         # Sample: create a small book action – creates an extra button
         self.screen_actions.append(XFUIAction('new_small_book', 'Create small book', 'new', url_name='library_smallbook_new'))
 
+        # Sample: create a new instance
+        create_new_instance_action = XFUIAction('new_instance', 'Create book instance', 'new',
+                                                url_name='library_book-instances_new',
+                                                action_type=ACTION_RELATED_INSTANCE)
+        create_new_instance_action.initial_data = "book="
+        self.row_action_list.append(create_new_instance_action)
+
 
 class ReadOnlyBookList(BookList):
     def __init__(self, model):
@@ -112,3 +136,14 @@ class AuthorList(XFModelList):
     def __init__(self, model):
         super().__init__(model)
         self.row_default_action = XFUIAction('overview', 'View books', 'view', use_ajax=False)
+
+
+class CheckoutList(XFModelList):
+
+    def __init__(self, model):
+        super().__init__(model)
+        #self.supported_crud_operations.remove('change')
+        self.get_action('new').next_url = 'library_checkout_details'
+        self.get_entity_action('edit').next_url = 'library_checkout_details'
+        #self.row_action_list.remove(self.get_entity_action('edit'))
+        #self.row_default_action = XFUIAction('overview', 'View books', 'view', use_ajax=False)

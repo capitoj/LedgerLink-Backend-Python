@@ -28,7 +28,7 @@ class TestUIBuilder(SimpleTestCase):
 
     def test_ui_builder_action_new(self):
 
-        new_action = self.uiBuilder.generate_action(XFActionType.SINGLE_ENTITY_NEW, 'new', 'Create new')
+        new_action = self.uiBuilder.generate_action(XFActionType.NEW_INSTANCE, 'new', 'Create new')
         self.assertEqual('library_book_new', new_action.url_name)
 
     def test_ui_builder_url_new(self):
