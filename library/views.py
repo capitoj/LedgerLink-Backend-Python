@@ -20,7 +20,7 @@ class BookMasterChildView(XFMasterChildView):
         context = super(BookMasterChildView, self).get_context_data(**kwargs)
 
         book_instances = XFDivLoader()
-        book_instances.caption = "Some of the instances";
+        book_instances.caption = "Book instances";
         book_instances.url = reverse('library_book-instances_list_by-book', kwargs={'related_fk':self.kwargs['pk']}) + "?&embed"
         self.add_related_listview(book_instances)
 
@@ -44,5 +44,22 @@ class AuthorMasterChildView(XFMasterChildView):
         return context
 
 
+class BookInstanceMasterChildView(XFMasterChildView):
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
+
+
+class CheckoutMasterChildView(XFMasterChildView):
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        books = XFDivLoader()
+        books.caption = "Books"
+        books.url = reverse('library_checkoutline_list_by-checkout', kwargs={'related_fk':self.kwargs['pk']}) + "?&embed"
+        self.add_related_listview(books)
+
+        return context
 
 
