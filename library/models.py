@@ -125,6 +125,8 @@ class Checkout(models.Model):
                                on_delete=models.PROTECT)
     price = models.DecimalField(blank=False, null=False, max_digits=10, decimal_places=2)
 
+    def __str__(self):
+        return "%s – %s" % (self.checkout_date, self.client)
 
 
 class Payment(models.Model):
@@ -139,5 +141,5 @@ class CheckoutLine(models.Model):
     book_instance = models.ForeignKey('BookInstance', blank=False, null=False, related_name='checkout_lines')
     checkout_date = models.DateField(blank=False, null=False)
     required_checkin_date = models.DateField(blank=False, null=False)
-    actual_checkin_date = models.DateField(blank=False, null=False)
+    actual_checkin_date = models.DateField(blank=True, null=True)
 

@@ -1,7 +1,8 @@
 from crispy_forms.helper import FormHelper
 from django.core.exceptions import ValidationError
+from django.forms import HiddenInput
 
-from library.models import Book
+from library.models import Book, CheckoutLine, Checkout
 
 from crispy_forms.layout import Layout, Div, Field, HTML
 from crispy_forms.bootstrap import TabHolder, Tab
@@ -10,7 +11,7 @@ from django.core.urlresolvers import reverse, resolve
 
 from xf_crud.model_forms import XFModelForm
 from xf_crud.model_lists import XFModelList
-from xf_crud.xf_classes import XFUIAction, ACTION_RELATED_INSTANCE
+from xf_crud.xf_classes import XFUIAction, ACTION_PREINITIALISED_RELATED_INSTANCE, ACTION_RELATED_INSTANCE
 
 
 class BookForm(XFModelForm):
@@ -110,8 +111,8 @@ class BookList(XFModelList):
         self.search_field = "title"
         self.add_javascript("library.js")
 
-        # This makes a row clickable action and takes you to the book overview page (where you can see instances)
-        self.row_default_action = XFUIAction('overview', 'View books', 'view', use_ajax=False)
+        # Sample: This attaches a book overview - the master child view - to the first column
+        self.row_action_list.append(XFUIAction('overview', 'View books', 'view', use_ajax=False, column_index=1))
 
         # Sample: create a small book action – creates an extra button
         self.screen_actions.append(XFUIAction('new_small_book', 'Create small book', 'new', url_name='library_smallbook_new'))
@@ -119,9 +120,13 @@ class BookList(XFModelList):
         # Sample: create a new instance
         create_new_instance_action = XFUIAction('new_instance', 'Create book instance', 'new',
                                                 url_name='library_book-instances_new',
-                                                action_type=ACTION_RELATED_INSTANCE)
+                                                action_type=ACTION_PREINITIALISED_RELATED_INSTANCE)
         create_new_instance_action.initial_data = "book="
         self.row_action_list.append(create_new_instance_action)
+
+        # Sample: Create a another clickable cell to see the details of a category
+        self.row_action_list.append(XFUIAction('category_details', 'See', 'view2', url_name='library_category_details', use_ajax=True,
+                           action_type=ACTION_RELATED_INSTANCE, column_index=2))
 
 
 class ReadOnlyBookList(BookList):
@@ -135,7 +140,7 @@ class AuthorList(XFModelList):
 
     def __init__(self, model):
         super().__init__(model)
-        self.row_default_action = XFUIAction('overview', 'View books', 'view', use_ajax=False)
+        self.row_action_list.append(XFUIAction('overview', 'View books', 'view', use_ajax=False, column_index=1))
 
 
 class CheckoutList(XFModelList):
@@ -145,5 +150,54 @@ class CheckoutList(XFModelList):
         #self.supported_crud_operations.remove('change')
         self.get_action('new').next_url = 'library_checkout_details'
         self.get_entity_action('edit').next_url = 'library_checkout_details'
-        #self.row_action_list.remove(self.get_entity_action('edit'))
-        #self.row_default_action = XFUIAction('overview', 'View books', 'view', use_ajax=False)
+        self.row_default_action = XFUIAction('overview', 'Overview', 'view', use_ajax=False)
+
+
+class BookInstanceList(XFModelList):
+
+    def __init__(self, model):
+        super().__init__(model)
+        self.row_default_action = XFUIAction('overview', 'Overview', 'view', use_ajax=False)
+
+class CheckoutLineList(XFModelList):
+
+    def __init__(self, model):
+        super().__init__(model)
+        self.get_action('new').action_caption = "Add book to checkout"
+
+class CheckoutLineForm(XFModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['checkout'].disabled = True
+        self.fields['checkout'].widget = HiddenInput()
+
+        # Here is an example where a default value can be set based on the value of
+        # another object. We retrieve the Checkout related to this checkoutline and
+        # attach the dates of it.
+        instance = getattr(self, 'instance', None)
+        if instance and instance.pk:    # Editing existing checkout
+            self.Meta.title = "Edit book"
+            self.fields['checkout_date'].disabled = True
+            self.fields['required_checkin_date'].disabled = True
+            self.fields['book_instance'].disabled = True
+            self.fields['actual_checkin_date'].disabled = False
+        else:   # Create a new checkout
+            self.fields['actual_checkin_date'].widget = HiddenInput()
+            self.fields['actual_checkin_date'].disabled = True
+            self.fields['required_checkin_date'].disabled = True
+
+            if 'initial' in kwargs:
+                if 'checkout' in kwargs['initial']:
+                    checkout_pk = kwargs['initial']['checkout']
+                    checkout = Checkout.objects.get(pk=checkout_pk)
+                    self.initial['checkout_date'] = checkout.checkout_date
+                    self.initial['required_checkin_date'] = checkout.required_checkin_date
+                    self.fields['checkout_date'].disabled = True
+
+
+
+    class Meta:
+        model = CheckoutLine
+        fields = ["checkout", "book_instance", "checkout_date", "required_checkin_date", "actual_checkin_date"]
+        title = "Add a book to checkout"
