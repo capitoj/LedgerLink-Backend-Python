@@ -8,10 +8,13 @@ from crispy_forms.layout import Layout, Div, Field, HTML
 from crispy_forms.bootstrap import TabHolder, Tab
 from django import forms
 from django.core.urlresolvers import reverse, resolve
+from django.forms.widgets import TextInput
 
 from xf_crud.model_forms import XFModelForm
 from xf_crud.model_lists import XFModelList
-from xf_crud.xf_classes import XFUIAction, ACTION_PREINITIALISED_RELATED_INSTANCE, ACTION_RELATED_INSTANCE
+from xf_crud.widgets import TypeAheadWidget
+from xf_crud.xf_classes import XFUIAction, ACTION_RELATED_INSTANCE, ACTION_ROW_INSTANCE, \
+    ACTION_PREINITIALISED_RELATED_INSTANCE
 
 
 class BookForm(XFModelForm):
@@ -19,11 +22,19 @@ class BookForm(XFModelForm):
         model = Book
         fields = ["title", "author", "publication_date", "category",]
         title = "Book me"
+        #widgets = {
+        #    'category': TypeAheadWidget
+        #}
+
+    #category = forms.TextInput()
 
     def __init__(self, *args, **kwargs):
         super(BookForm, self).__init__(*args, **kwargs)
         self.fields['title'].widget.attrs['placeholder'] = "Enter the book's title"
         self.fields['publication_date'].widget.attrs['class'] = "date-field datepicker"
+        #self.fields['category'] = TextInput()
+        #self.fields['category'].widget = forms.TextInput
+
         self.add_javascript("library.js")
 
         # Example of pre-setting a value self.initial = {'author':'1'}
@@ -150,7 +161,7 @@ class CheckoutList(XFModelList):
         #self.supported_crud_operations.remove('change')
         self.get_action('new').next_url = 'library_checkout_details'
         self.get_entity_action('edit').next_url = 'library_checkout_details'
-        self.row_default_action = XFUIAction('overview', 'Overview', 'view', use_ajax=False)
+        self.row_action_list.append(XFUIAction('overview', 'Overview', 'view', use_ajax=False, column_index=1))
 
 
 class BookInstanceList(XFModelList):
