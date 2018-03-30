@@ -2,9 +2,9 @@ from django.core.signals import request_started
 from django.dispatch import receiver
 
 #from library.models import Book
-#from xf_crud.auth.permission_mixin import PermissionMixin
-from xf_system.views import XFNavigationViewMixin
-from xf_system.xf_navigation import add_navigation
+#from xf.xf_crud.auth.permission_mixin import PermissionMixin
+from xf.xf_system.views import XFNavigationViewMixin
+from xf.xf_system.xf_navigation import add_navigation
 
 
 def load_navigation(sender, navigation_trees, request):

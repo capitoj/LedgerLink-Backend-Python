@@ -5,12 +5,12 @@ from django.views.generic import DetailView, UpdateView, DeleteView, CreateView
 from django.views.generic.edit import ModelFormMixin
 
 from library.models import BookInstance
-from xf_crud.ajax_mixins import XFAjaxViewMixin
-from xf_crud.generic_crud_views import XFDetailView, XFMasterChildView
-from xf_crud.mixins import XFCrudMixin
-from xf_crud.model_lists import XFModelList, XFDivLoader
-from xf_crud.permission_mixin import XFPermissionMixin
-from xf_system.views import XFNavigationViewMixin
+from xf.xf_crud.ajax_mixins import XFAjaxViewMixin
+from xf.xf_crud.generic_crud_views import XFDetailView, XFMasterChildView
+from xf.xf_crud.mixins import XFCrudMixin
+from xf.xf_crud.model_lists import XFModelList, XFDivLoader
+from xf.xf_crud.permission_mixin import XFPermissionMixin
+from xf.xf_system.views import XFNavigationViewMixin
 
 
 class BookMasterChildView(XFMasterChildView):

@@ -48,18 +48,16 @@ PREREQ_APPS = [
 ]
 
 PROJECT_APPS = [
-    'xf_crud',
-    'xf_system',
-    'uc_dashboards',
+    'xf.xf_crud',
+    'xf.xf_system',
+    'xf.uc_dashboards',
     'crispy_forms',
     'library',
-    'uc_dashboards.templatetags.getattribute',
-    'uc_dashboards.templatetags.dashgent_filters',
-    'uc_dashboards.templatetags.iif',
+    'xf.uc_dashboards.templatetags.getattribute',
+    'xf.uc_dashboards.templatetags.dashgent_filters',
+    'xf.uc_dashboards.templatetags.iif',
     'this_dashboard',
     'mainsite',
-
-
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'

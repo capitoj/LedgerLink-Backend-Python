@@ -5,7 +5,7 @@ from django.urls import reverse
 from library.forms import BookForm, BookList
 from library.models import Book
 from library.tests.xf_crud_tests.mixins import CreateUsersMixin
-from xf_crud.xf_crud_helpers import crudurl
+from xf.xf_crud.xf_crud_helpers import crudurl
 
 
 class TestCRUDPermissions(TestCase, CreateUsersMixin):

@@ -8,9 +8,9 @@ from library.forms import BookForm, SmallBookForm, SmallBookList, BookList, Read
 from library.models import Book, Author, Category, BookInstance, Library, Client, Checkout, Payment, CheckoutLine
 from library.views import XFMasterChildView, BookMasterChildView, AuthorMasterChildView, BookInstanceMasterChildView, \
     CheckoutMasterChildView
-from xf_crud.crud_url_builder import XFCrudURLBuilder
-from xf_crud.generic_crud_views import XFDetailView
-from xf_crud.xf_crud_helpers import crudurl
+from xf.xf_crud.crud_url_builder import XFCrudURLBuilder
+from xf.xf_crud.generic_crud_views import XFDetailView
+from xf.xf_crud.xf_crud_helpers import crudurl
 
 
 urlpatterns = []

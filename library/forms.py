@@ -10,10 +10,10 @@ from django import forms
 from django.core.urlresolvers import reverse, resolve
 from django.forms.widgets import TextInput
 
-from xf_crud.model_forms import XFModelForm
-from xf_crud.model_lists import XFModelList
-from xf_crud.widgets import TypeAheadWidget
-from xf_crud.xf_classes import XFUIAction, ACTION_RELATED_INSTANCE, ACTION_ROW_INSTANCE, \
+from xf.xf_crud.model_forms import XFModelForm
+from xf.xf_crud.model_lists import XFModelList
+from xf.xf_crud.widgets import TypeAheadWidget
+from xf.xf_crud.xf_classes import XFUIAction, ACTION_RELATED_INSTANCE, ACTION_ROW_INSTANCE, \
     ACTION_PREINITIALISED_RELATED_INSTANCE
 
 
