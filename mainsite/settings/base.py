@@ -94,7 +94,7 @@ TEMPLATES = [
 #                'django.core.context_processors.static',
 #                'django.template.context.static',
                 'django.contrib.messages.context_processors.messages',
-                'uc_dashboards.context_processors.include_login_form',
+                'xf.uc_dashboards.context_processors.include_login_form',
                 'library.middleware.load_app_assets_in_context',
             ],
         },
@@ -175,7 +175,7 @@ STATICFILES_DIRS = (
 )
 
 PROJECT_ROOT = os.path.dirname(os.path.realpath(__file__))
-FIXTURE_DIRS = (os.path.join(PROJECT_ROOT, 'uc_dashboards/fixtures'),)
+FIXTURE_DIRS = (os.path.join(PROJECT_ROOT, 'xf.uc_dashboards/fixtures'),)
 
 ##FIXTURE_DIRS = (
 #   os.path.join(BASE_DIR, 'uc_dashboards/fixtures'),
