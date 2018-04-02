@@ -175,6 +175,9 @@ class CheckoutLineList(XFModelList):
     def __init__(self, model):
         super().__init__(model)
         self.get_action('new').action_caption = "Add book to checkout"
+        self.row_action_list.append(XFUIAction('return_book', 'Return book', 'view2', url_name='library_book_return', use_ajax=True,
+                           action_type=ACTION_ROW_INSTANCE))
+
 
 class CheckoutLineForm(XFModelForm):
 
