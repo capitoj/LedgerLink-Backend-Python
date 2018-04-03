@@ -2,8 +2,8 @@ from django.test import TestCase, SimpleTestCase
 
 from library.models import Book
 from library.tests.xf_crud_tests.mixins import CreateUsersMixin
-from xf_crud.model_lists import XFModelList
-from xf_crud.xf_classes import XFUIAction
+from xf.xf_crud.model_lists import XFModelList
+from xf.xf_crud.xf_classes import XFUIAction
 
 
 class TestActions(TestCase, CreateUsersMixin):

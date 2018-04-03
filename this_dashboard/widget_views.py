@@ -7,7 +7,7 @@ from django.core.urlresolvers import reverse
 from django.template import RequestContext
 from django.template.response import TemplateResponse
 
-from uc_dashboards.views import WidgetView
+from xf.uc_dashboards.views import WidgetView
 from django.conf import settings
 
 

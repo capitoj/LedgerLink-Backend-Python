@@ -11,8 +11,8 @@ class XFMainAppConfig(AppConfig):
 
     def ready(self):
 
-        from xf_system.models import XFSiteSettings
-        from xf_system.views import XFNavigationViewMixin
+        from xf.xf_system.models import XFSiteSettings
+        from xf.xf_system.views import XFNavigationViewMixin
 
         settings = XFSiteSettings.objects.filter(settings_key='default')
 

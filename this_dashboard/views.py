@@ -1,7 +1,7 @@
 from django.shortcuts import render
 
 # Create your views here.
-from uc_dashboards.views import DashboardPageView
+from xf.uc_dashboards.views import DashboardPageView
 
 
 class UDSDashboardPageView(DashboardPageView):

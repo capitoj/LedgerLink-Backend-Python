@@ -50,18 +50,16 @@ PREREQ_APPS = [
 ]
 
 PROJECT_APPS = [
-    'xf_crud',
-    'xf_system',
-    'uc_dashboards',
+    'xf.xf_crud',
+    'xf.xf_system',
+    'xf.uc_dashboards',
     'crispy_forms',
     'library',
-    'uc_dashboards.templatetags.getattribute',
-    'uc_dashboards.templatetags.dashgent_filters',
-    'uc_dashboards.templatetags.iif',
+    'xf.uc_dashboards.templatetags.getattribute',
+    'xf.uc_dashboards.templatetags.dashgent_filters',
+    'xf.uc_dashboards.templatetags.iif',
     'this_dashboard',
     'mainsite',
-
-
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
@@ -98,7 +96,7 @@ TEMPLATES = [
 #                'django.core.context_processors.static',
 #                'django.template.context.static',
                 'django.contrib.messages.context_processors.messages',
-                'uc_dashboards.context_processors.include_login_form',
+                'xf.uc_dashboards.context_processors.include_login_form',
                 'library.middleware.load_app_assets_in_context',
             ],
         },
@@ -191,7 +189,7 @@ STATICFILES_DIRS = (
 )
 
 PROJECT_ROOT = os.path.dirname(os.path.realpath(__file__))
-FIXTURE_DIRS = (os.path.join(PROJECT_ROOT, 'uc_dashboards/fixtures'),)
+FIXTURE_DIRS = (os.path.join(PROJECT_ROOT, 'xf.uc_dashboards/fixtures'),)
 
 ##FIXTURE_DIRS = (
 #   os.path.join(BASE_DIR, 'uc_dashboards/fixtures'),

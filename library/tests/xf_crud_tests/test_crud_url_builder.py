@@ -4,8 +4,8 @@ import unittest
 from library.forms import BookForm, BookList
 from library.models import Book
 from library.views import BookMasterChildView
-from xf_crud.crud_url_builder import XFCrudURLBuilder
-from xf_crud.xf_crud_helpers import crudurl
+from xf.xf_crud.crud_url_builder import XFCrudURLBuilder
+from xf.xf_crud.xf_crud_helpers import crudurl
 
 
 class TestCrudURLBuilder(SimpleTestCase):

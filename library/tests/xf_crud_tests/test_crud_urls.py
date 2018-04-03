@@ -3,7 +3,7 @@ import unittest
 
 from library.forms import BookForm, BookList
 from library.models import Book
-from xf_crud.xf_crud_helpers import crudurl
+from xf.xf_crud.xf_crud_helpers import crudurl
 
 
 class TestCrudURLs(SimpleTestCase):
