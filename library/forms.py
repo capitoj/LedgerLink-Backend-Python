@@ -12,7 +12,7 @@ from django.forms.widgets import TextInput
 
 from xf.xf_crud.model_forms import XFModelForm
 from xf.xf_crud.model_lists import XFModelList
-from xf.xf_crud.widgets import TypeAheadWidget
+from xf.xf_crud.widgets import TypeAheadWidget, StaticTextWidget, StaticSelectWidget
 from xf.xf_crud.xf_classes import XFUIAction, ACTION_RELATED_INSTANCE, ACTION_ROW_INSTANCE, \
     ACTION_PREINITIALISED_RELATED_INSTANCE
 
@@ -72,13 +72,21 @@ class WideBookForm(BookForm):
 class SmallBookForm(XFModelForm):
     class Meta:
         model = Book
-        fields = ["title"]
+        fields = ["title", "author"]
 
         title = "Quickly add a book"
 
     def __init__(self, *args, **kwargs):
         super(SmallBookForm, self).__init__(*args, **kwargs)
+        self.helper.form_class += ' form-static'
         self.fields['title'].widget.attrs['placeholder'] = "Enter the book's title"
+        self.fields['title'].widget = StaticTextWidget()
+        self.fields['author'].widget = StaticSelectWidget(choices=self.fields['author'].choices)
+        widget = self.fields['author'].widget
+        field = self.fields['author']
+        #self.fields['author'].widget.template_name = "widgets/static_select.html"
+
+
 
     def clean_title(self):
         title = self.cleaned_data['title']
