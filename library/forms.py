@@ -40,22 +40,41 @@ class BookForm(XFModelForm):
         # Example of pre-setting a value self.initial = {'author':'1'}
         # self.fields['author'].widget.attrs['readonly'] = True
 
-        self.helper.layout = Layout(
-            TabHolder(
-                Tab('Book',
-                    Field('title', 'publication_date', )
-                    ),
-                Tab('Author',
-                    Field('author', 'category', )
-                    ),
+        # An example of how you can use a single form for multiple purposes
+        if self.url_name == 'library_book_overview':
+            self.helper.layout = Layout(
+                Div(
+                    Div(HTML(
+                        "<p>This is a fully working overview page. The form displayed here is a 'BookForm'</p>"),
+                        css_class='col-md-12')
+                    , css_class='row'
+                ),
+                Div(
+                    Div('title', 'publication_date', css_class='col-md-4'),
+                    Div('author', 'category', css_class='col-md-4'),
+                    Div(HTML("Some more text"), css_class='col-md-4'),
+                    css_class='row',
+            ),
             )
-        )
+        elif self.url_name != 'library_book_details':
+            self.helper.layout = Layout(
+                TabHolder(
+                    Tab('Book',
+                        Field('title', 'publication_date', )
+                        ),
+                    Tab('Author',
+                        Field('author', 'category', )
+                        ),
+                )
+            )
+        else: # default layout for details form
+            pass
 
 class WideBookForm(BookForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.helper.form_class = None
+        #self.helper.form_class = None
         self.helper.layout = Layout(
             Div(
                 Div(HTML("<p>This is a fully working overview page. The form displayed here is a 'WideBookForm'</p>"), css_class='col-md-12')
@@ -80,10 +99,10 @@ class SmallBookForm(XFModelForm):
         super(SmallBookForm, self).__init__(*args, **kwargs)
         self.helper.form_class += ' form-static'
         self.fields['title'].widget.attrs['placeholder'] = "Enter the book's title"
-        self.fields['title'].widget = StaticTextWidget()
-        self.fields['author'].widget = StaticSelectWidget(choices=self.fields['author'].choices)
-        widget = self.fields['author'].widget
-        field = self.fields['author']
+        #self.fields['title'].widget = StaticTextWidget()
+        #self.fields['author'].widget = StaticSelectWidget(choices=self.fields['author'].choices)
+        #widget = self.fields['author'].widget
+        #field = self.fields['author']
         #self.fields['author'].widget.template_name = "widgets/static_select.html"
 
 
