@@ -2,7 +2,7 @@ from crispy_forms.helper import FormHelper
 from django.core.exceptions import ValidationError
 from django.forms import HiddenInput
 
-from library.models import Book, CheckoutLine, Checkout
+from library.models import Book, CheckoutLine, Checkout, Author
 
 from crispy_forms.layout import Layout, Div, Field, HTML
 from crispy_forms.bootstrap import TabHolder, Tab
@@ -12,7 +12,7 @@ from django.forms.widgets import TextInput
 
 from xf.xf_crud.model_forms import XFModelForm
 from xf.xf_crud.model_lists import XFModelList
-from xf.xf_crud.widgets import TypeAheadWidget, StaticTextWidget, StaticSelectWidget
+from xf.xf_crud.widgets import TypeAheadWidget, StaticTextWidget, StaticSelectWidget, MissingTextInput
 from xf.xf_crud.xf_classes import XFUIAction, ACTION_RELATED_INSTANCE, ACTION_ROW_INSTANCE, \
     ACTION_PREINITIALISED_RELATED_INSTANCE
 
@@ -179,6 +179,22 @@ class AuthorList(XFModelList):
     def __init__(self, model):
         super().__init__(model)
         self.row_action_list.append(XFUIAction('overview', 'View books', 'view', use_ajax=False, column_index=1))
+
+
+class AuthorForm(XFModelForm):
+
+    class Meta:
+        model = Author
+        fields = ['first_name', 'last_name']
+        title = "Author"
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['first_name'].widget = MissingTextInput(is_new_entity=self.is_new_entity(), blank_text="Unknown/declined")
+        self.fields['last_name'].widget = MissingTextInput(is_new_entity=self.is_new_entity())
+
+
+
 
 
 class CheckoutList(XFModelList):
