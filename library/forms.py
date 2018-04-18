@@ -97,7 +97,7 @@ class SmallBookForm(XFModelForm):
 
     def __init__(self, *args, **kwargs):
         super(SmallBookForm, self).__init__(*args, **kwargs)
-        self.helper.form_class += ' form-static'
+        #self.helper.form_class += ' form-static'
         self.fields['title'].widget.attrs['placeholder'] = "Enter the book's title"
         #self.fields['title'].widget = StaticTextWidget()
         #self.fields['author'].widget = StaticSelectWidget(choices=self.fields['author'].choices)

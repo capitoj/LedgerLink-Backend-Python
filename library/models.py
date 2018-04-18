@@ -24,6 +24,10 @@ class Author(models.Model):
     class Meta:
         default_permissions = ('add', 'change', 'delete', 'view', 'list')
 
+    def prepare_for_save(self, request, user):
+
+        pass
+
 
 
 class Category(models.Model):
