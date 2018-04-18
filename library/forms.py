@@ -193,8 +193,10 @@ class AuthorForm(XFModelForm):
         self.fields['first_name'].widget = MissingTextInput(is_new_entity=self.is_new_entity(), blank_text="Unknown/declined")
         self.fields['last_name'].widget = MissingTextInput(is_new_entity=self.is_new_entity())
 
+    def prepare_form_for_save(self, instance):
 
-
+        #instance.first_name = "Always this first name"
+        super().prepare_form_for_save(instance)
 
 
 class CheckoutList(XFModelList):
