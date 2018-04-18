@@ -41,7 +41,7 @@ urlpatterns += [checkoutline_builder.get_list_related_url(url_related_name="by-c
 # ### MASTER CHILD PAGES
 # This part builds the master-child pages. These two classes must be written as part of your app.
 # Specify a form class if you want to have a special form on the top of your screen
-urlpatterns += [book_builder.get_overview_url(form_class_type=WideBookForm, view_class_type=BookMasterChildView)]
+urlpatterns += [book_builder.get_overview_url(form_class_type=BookForm, view_class_type=BookMasterChildView)]
 urlpatterns += [author_builder.get_overview_url(view_class_type=AuthorMasterChildView)]
 urlpatterns += [book_instance_builder.get_overview_url(view_class_type=BookInstanceMasterChildView)]
 urlpatterns += [checkout_builder.get_overview_url(view_class_type=CheckoutMasterChildView)]

@@ -2,7 +2,7 @@ from crispy_forms.helper import FormHelper
 from django.core.exceptions import ValidationError
 from django.forms import HiddenInput
 
-from library.models import Book, CheckoutLine, Checkout, Author
+from library.models import Book, CheckoutLine, Checkout
 
 from crispy_forms.layout import Layout, Div, Field, HTML
 from crispy_forms.bootstrap import TabHolder, Tab
@@ -12,7 +12,7 @@ from django.forms.widgets import TextInput
 
 from xf.xf_crud.model_forms import XFModelForm
 from xf.xf_crud.model_lists import XFModelList
-from xf.xf_crud.widgets import TypeAheadWidget, MissingTextInput
+from xf.xf_crud.widgets import TypeAheadWidget, StaticTextWidget, StaticSelectWidget
 from xf.xf_crud.xf_classes import XFUIAction, ACTION_RELATED_INSTANCE, ACTION_ROW_INSTANCE, \
     ACTION_PREINITIALISED_RELATED_INSTANCE
 
@@ -40,22 +40,41 @@ class BookForm(XFModelForm):
         # Example of pre-setting a value self.initial = {'author':'1'}
         # self.fields['author'].widget.attrs['readonly'] = True
 
-        self.helper.layout = Layout(
-            TabHolder(
-                Tab('Book',
-                    Field('title', 'publication_date', )
-                    ),
-                Tab('Author',
-                    Field('author', 'category', )
-                    ),
+        # An example of how you can use a single form for multiple purposes
+        if self.url_name == 'library_book_overview':
+            self.helper.layout = Layout(
+                Div(
+                    Div(HTML(
+                        "<p>This is a fully working overview page. The form displayed here is a 'BookForm'</p>"),
+                        css_class='col-md-12')
+                    , css_class='row'
+                ),
+                Div(
+                    Div('title', 'publication_date', css_class='col-md-4'),
+                    Div('author', 'category', css_class='col-md-4'),
+                    Div(HTML("Some more text"), css_class='col-md-4'),
+                    css_class='row',
+            ),
             )
-        )
+        elif self.url_name != 'library_book_details':
+            self.helper.layout = Layout(
+                TabHolder(
+                    Tab('Book',
+                        Field('title', 'publication_date', )
+                        ),
+                    Tab('Author',
+                        Field('author', 'category', )
+                        ),
+                )
+            )
+        else: # default layout for details form
+            pass
 
 class WideBookForm(BookForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.helper.form_class = None
+        #self.helper.form_class = None
         self.helper.layout = Layout(
             Div(
                 Div(HTML("<p>This is a fully working overview page. The form displayed here is a 'WideBookForm'</p>"), css_class='col-md-12')
@@ -72,13 +91,21 @@ class WideBookForm(BookForm):
 class SmallBookForm(XFModelForm):
     class Meta:
         model = Book
-        fields = ["title"]
+        fields = ["title", "author"]
 
         title = "Quickly add a book"
 
     def __init__(self, *args, **kwargs):
         super(SmallBookForm, self).__init__(*args, **kwargs)
+        self.helper.form_class += ' form-static'
         self.fields['title'].widget.attrs['placeholder'] = "Enter the book's title"
+        #self.fields['title'].widget = StaticTextWidget()
+        #self.fields['author'].widget = StaticSelectWidget(choices=self.fields['author'].choices)
+        #widget = self.fields['author'].widget
+        #field = self.fields['author']
+        #self.fields['author'].widget.template_name = "widgets/static_select.html"
+
+
 
     def clean_title(self):
         title = self.cleaned_data['title']
@@ -152,20 +179,6 @@ class AuthorList(XFModelList):
     def __init__(self, model):
         super().__init__(model)
         self.row_action_list.append(XFUIAction('overview', 'View books', 'view', use_ajax=False, column_index=1))
-
-
-class AuthorForm(XFModelForm):
-
-    class Meta:
-        model = Author
-        fields = ['first_name', 'last_name']
-        title = "Author"
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['first_name'].widget = MissingTextInput(is_new_entity=self.is_new_entity(), blank_text="Unknown/declined")
-        self.fields['last_name'].widget = MissingTextInput(is_new_entity=self.is_new_entity())
-
 
 
 class CheckoutList(XFModelList):
