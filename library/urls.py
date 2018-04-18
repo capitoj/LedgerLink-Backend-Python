@@ -5,7 +5,7 @@ from django.contrib.auth import views as auth_views
 
 from library.custom_views import ReturnBookView
 from library.forms import BookForm, SmallBookForm, SmallBookList, BookList, ReadOnlyBookList, AuthorList, CheckoutList, \
-    WideBookForm, BookInstanceList, CheckoutLineList, CheckoutLineForm
+    WideBookForm, BookInstanceList, CheckoutLineList, CheckoutLineForm, AuthorForm
 from library.models import Book, Author, Category, BookInstance, Library, Client, Checkout, Payment, CheckoutLine
 from library.views import XFMasterChildView, BookMasterChildView, AuthorMasterChildView, BookInstanceMasterChildView, \
     CheckoutMasterChildView
@@ -53,7 +53,7 @@ urlpatterns += crudurl("library", "book-instances", BookInstance, None, BookInst
 urlpatterns += crudurl("library", "book", Book, BookForm, BookList)
 urlpatterns += crudurl("library/view", "book", Book, BookForm, ReadOnlyBookList)
 urlpatterns += crudurl("library", "smallbook", Book, SmallBookForm, SmallBookList)
-urlpatterns += crudurl("library", "author", Author, None, AuthorList)
+urlpatterns += crudurl("library", "author", Author, AuthorForm, AuthorList)
 urlpatterns += crudurl("library", "category", Category, None)
 urlpatterns += crudurl("library", "library", Library, None)
 urlpatterns += crudurl("library", "client", Client, None)
