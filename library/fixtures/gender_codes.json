@@ -1,0 +1,35 @@
+
+[
+  {
+    "model": "library.gendercode",
+    "pk": 0,
+    "fields": {
+      "code": 0,
+      "name": "Not specified"
+    }
+  },
+  {
+    "model": "library.gendercode",
+    "pk": 1,
+    "fields": {
+      "code": 1,
+      "name": "Male"
+    }
+  },
+  {
+    "model": "library.gendercode",
+    "pk": 2,
+    "fields": {
+      "code": 2,
+      "name": "Female"
+    }
+  },
+  {
+    "model": "library.gendercode",
+    "pk": 3,
+    "fields": {
+      "code": 3,
+      "name": "Other"
+    }
+  }
+]
