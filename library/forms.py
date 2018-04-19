@@ -185,7 +185,7 @@ class AuthorForm(XFModelForm):
 
     class Meta:
         model = Author
-        fields = ['first_name', 'last_name']
+        fields = ['first_name', 'last_name', 'gender', 'category']
         title = "Author"
 
     def __init__(self, *args, **kwargs):

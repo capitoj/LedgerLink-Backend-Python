@@ -13,9 +13,23 @@ options.DEFAULT_NAMES = options.DEFAULT_NAMES + ('list_field_list', 'search_fiel
     'list_description', 'list_title', 'list_hint')
 
 
+from xf.xf_crud.models import XFCodeTable
+
+
+class GenderCode(XFCodeTable):
+    pass
+
+
+class AuthorCategoryCode(XFCodeTable):
+    pass
+
+
+
 class Author(models.Model):
     first_name = models.CharField(max_length=128, blank=True, null=True)
     last_name = models.CharField(max_length=128, blank=True, null=True)
+    gender = models.ForeignKey('GenderCode', blank=False, null=False, on_delete=models.PROTECT)
+    category = models.ForeignKey('AuthorCategoryCode', blank=False, null=False, on_delete=models.PROTECT)
 
     def __str__(self):
 
@@ -119,7 +133,7 @@ class Client(models.Model):
 
 class Checkout(models.Model):
 
-    def _get_default_checkin_date():
+    def _get_default_checkin_date(self):
         checkout_date = datetime.date.today()
         allowed_period = datetime.timedelta(days=21)
         return checkout_date + allowed_period

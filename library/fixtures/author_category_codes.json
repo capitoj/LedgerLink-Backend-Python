@@ -1,0 +1,27 @@
+
+[
+  {
+    "model": "library.authorcategorycode",
+    "pk": 0,
+    "fields": {
+      "code": 0,
+      "name": "Not specified"
+    }
+  },
+  {
+    "model": "library.authorcategorycode",
+    "pk": 1,
+    "fields": {
+      "code": 1,
+      "name": "Internal author"
+    }
+  },
+  {
+    "model": "library.authorcategorycode",
+    "pk": 2,
+    "fields": {
+      "code": 2,
+      "name": "External author"
+    }
+  }
+]
