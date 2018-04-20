@@ -30,7 +30,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-HOME_PAGE = "/dashboards/home/overview/"
+HOME_PAGE = "/dashboards/home/national/overview/"
 LOGIN_URL = "/dashboards/0/home/welcome/"
 LOGIN_REDIRECT_URL = "/"
 
@@ -77,6 +77,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'library.middleware.LibraryMiddleware',
+    'xf.xf_system.middleware.LoginMenuMiddleware'
 ]
 
 
@@ -97,6 +98,7 @@ TEMPLATES = [
 #                'django.template.context.static',
                 'django.contrib.messages.context_processors.messages',
                 'xf.uc_dashboards.context_processors.include_login_form',
+                'xf.xf_system.context_processors.include_user_menu',
                 'library.middleware.load_app_assets_in_context',
             ],
         },
