@@ -2,9 +2,10 @@ from .base import *
 
 DEBUG=True
 
-#ALLOWED_HOSTS = ['localhost','127.0.0.1','ptbi-dashboard.globalhealthapp.net']
-ALLOWED_HOSTS = ['*']
-#USE_X_FORWARDED_HOST = True
+HOME_PAGE = "/dashboards/page-section/default-perspective/home/"
+LOGIN_URL = "/dashboards/page-section/login/"
+LOGIN_REDIRECT_URL = "/"
+
 
 DATABASES = {
     'default': {
