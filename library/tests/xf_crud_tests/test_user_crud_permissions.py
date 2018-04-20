@@ -45,10 +45,6 @@ class TestCRUDPermissions(TestCase, CreateUsersMixin):
 
         self.assertEqual(response.status_code, 200)
         self.assertTrue(response.context_data['search'])  # corresponds to list permission
-        self.assertTrue(response.context_data['view'])
-        self.assertFalse(response.context_data['change'])
-        self.assertFalse(response.context_data['add'])
-        self.assertFalse(response.context_data['delete'])
         pass
 
     def test_book_full_rights_list(self):
@@ -57,9 +53,5 @@ class TestCRUDPermissions(TestCase, CreateUsersMixin):
 
         self.assertEqual(response.status_code, 200)
         self.assertTrue(response.context_data['search'])  # corresponds to list permission
-        self.assertTrue(response.context_data['view'])
-        self.assertTrue(response.context_data['change'])
-        self.assertTrue(response.context_data['add'])
-        self.assertTrue(response.context_data['delete'])
         pass
 
