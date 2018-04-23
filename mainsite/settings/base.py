@@ -190,8 +190,8 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
 )
 
-PROJECT_ROOT = os.path.dirname(os.path.realpath(__file__))
-FIXTURE_DIRS = (os.path.join(PROJECT_ROOT, 'xf.uc_dashboards/fixtures'),)
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
+FIXTURE_DIRS = (os.path.join(PROJECT_ROOT, 'library/tests/fixtures'),)
 
 ##FIXTURE_DIRS = (
 #   os.path.join(BASE_DIR, 'uc_dashboards/fixtures'),
