@@ -31,7 +31,6 @@ class BookForm(XFModelForm):
     def __init__(self, *args, **kwargs):
         super(BookForm, self).__init__(*args, **kwargs)
         self.fields['title'].widget.attrs['placeholder'] = "Enter the book's title"
-        self.fields['publication_date'].widget.attrs['class'] = "date-field datepicker"
         #self.fields['category'] = TextInput()
         #self.fields['category'].widget = forms.TextInput
 

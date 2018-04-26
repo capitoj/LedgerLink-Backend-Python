@@ -133,7 +133,7 @@ class Client(models.Model):
 
 class Checkout(models.Model):
 
-    def _get_default_checkin_date(self):
+    def _get_default_checkin_date():
         checkout_date = datetime.date.today()
         allowed_period = datetime.timedelta(days=21)
         return checkout_date + allowed_period
