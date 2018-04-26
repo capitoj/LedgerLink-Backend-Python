@@ -1,41 +1,23 @@
-import unittest
 import datetime
 
-from django.core.exceptions import ValidationError
-from django.test import TestCase
-
 from library.models import Book
+from xf.xf_system.testing.extended_test_case import ExtendedTestCase
 
 
-class ValidateBook(TestCase):
+class ValidateBook(ExtendedTestCase):
 
     def test_title(self):
-        book = Book()
-        book.title = "23 years"
-        with self.assertRaises(ValidationError) as ex:
-            book.clean()
-        self.assertIn("title", ex.exception.message_dict)
-
-        book.title = "24 years"
-        try:
-            book.clean()
-        except ValidationError:
-            self.fail("Clean raised ValidationError unexpectedly")
+        self.assertNotClean(Book, "title", "23 years")
+        self.assertClean(Book, "title", "25 years")
 
     def test_publication_date(self):
-        book = Book()
-        book.publication_date = datetime.date.today() + datetime.timedelta(days=21)
-        with self.assertRaises(ValidationError) as ex:
-            book.clean()
-        self.assertIn("publication_date", ex.exception.message_dict)
+        self.assertNotClean(Book, 'publication_date', datetime.date.today() + datetime.timedelta(days=21))
+        self.assertClean(Book, 'publication_date', datetime.date(1920, 1, 1))
+        self.assertNotClean(Book, 'publication_date', datetime.date(1800, 1, 1))
 
-        book.publication_date = datetime.date(1800, 1, 1)
-        with self.assertRaises(ValidationError) as ex:
-            book.clean()
-        self.assertIn("publication_date", ex.exception.message_dict)
+        # Borders
+        self.assertClean(Book, 'publication_date', datetime.date.today())
+        self.assertClean(Book, 'publication_date', datetime.date.today() - datetime.timedelta(days=1))
+        self.assertNotClean(Book, 'publication_date', datetime.date.today() + datetime.timedelta(days=1))
 
-        book.publication_date = datetime.date(1920, 1, 1)
-        try:
-            book.clean()
-        except ValidationError:
-            self.fail("Clean raised ValidationError unexpectedly")
+
