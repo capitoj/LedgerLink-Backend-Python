@@ -31,6 +31,8 @@ class BookForm(XFModelForm):
     def __init__(self, *args, **kwargs):
         super(BookForm, self).__init__(*args, **kwargs)
         self.fields['title'].widget.attrs['placeholder'] = "Enter the book's title"
+        self.fields['publication_date'].widget = MissingTextInput(is_new_entity=self.is_new_entity(),
+                                                            blank_text="Unknown/declined", is_date_picker=True)
         #self.fields['category'] = TextInput()
         #self.fields['category'].widget = forms.TextInput
 
