@@ -2,10 +2,10 @@ import datetime
 
 from library.forms import SmallBookForm
 from library.models import Book
-from xf.xf_system.testing.extended_test_case import ExtendedTestCase
+from xf.xf_system.testing.xf_test_case import XFTestCase
 
 
-class ValidateSmallBookForm(ExtendedTestCase):
+class ValidateSmallBookForm(XFTestCase):
 
     def setUp(self):
         super().setUp()
