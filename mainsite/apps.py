@@ -1,6 +1,6 @@
 
 from django.apps import AppConfig
-
+from django.db import connection
 
 
 
@@ -14,9 +14,14 @@ class XFMainAppConfig(AppConfig):
         from xf.xf_system.models import XFSiteSettings
         from xf.xf_system.views import XFNavigationViewMixin
 
-        settings = XFSiteSettings.objects.filter(settings_key='default')
+        try:
+            table_exists = "xf_system_xfsitesettings" in connection.introspection.table_names()
+            settings = XFSiteSettings.objects.filter(settings_key='default')
+        except:
+            settings = None
+            pass
 
-        if not settings:
+        if table_exists is False or settings.count() == 0:
             print("No settings")
             XFNavigationViewMixin.site_settings = XFSiteSettings()
             XFNavigationViewMixin.site_settings.site_title = "XF"
