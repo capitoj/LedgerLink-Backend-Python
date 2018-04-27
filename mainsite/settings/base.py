@@ -30,9 +30,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-HOME_PAGE = "/dashboards/home/national/overview/"
-LOGIN_URL = "/dashboards/0/home/welcome/"
+HOME_PAGE = "/dashboards/page-section/default-perspective/home/"
+LOGIN_URL = "/dashboards/page-section/login/"
 LOGIN_REDIRECT_URL = "/"
+
 
 # Application definition
 
@@ -118,16 +119,8 @@ EXTRA_CSS_ASSETS = ('library_css',)
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, '../db.sqlite3'),
+        'NAME': os.path.join(BASE_DIR, '../default.sqlite3'),
     },
-#    'some_my_sql': {
-#        'NAME': 'mysql_db',
-#        'ENGINE': 'django.db.backends.mysql',
-#        'USER': 'readonly',
-#        'PORT': '3307',
-#        'HOST': '127.0.0.1',
-#        'PASSWORD': 'readonly',
-#    },
     'ibbs':{
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, '../IBBS.db'),
