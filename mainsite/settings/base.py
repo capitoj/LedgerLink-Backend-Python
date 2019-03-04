@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'j^xyylufaz=la&&ko1+p0(qo*2-hxdo#$4zptq&z=ezn-ny3kn'
+SECRET_KEY = 'zss!j&zx#*-=o-$t(z_@@1mkr!z50_tet3u)+0bbkfht=c=(3a'
 
 
 
@@ -55,7 +55,8 @@ PROJECT_APPS = [
     'xf.xf_system',
     'xf.uc_dashboards',
     'crispy_forms',
-    'library',
+    'ledgerlink',
+    # 'library',
     'xf.uc_dashboards.templatetags.getattribute',
     'xf.uc_dashboards.templatetags.dashgent_filters',
     'xf.uc_dashboards.templatetags.iif',
@@ -75,9 +76,10 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
+    # 'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'library.middleware.LibraryMiddleware',
+    # 'library.middleware.LibraryMiddleware',
+    'ledgerlink.middleware.LedgerlinkMiddleware',
     'xf.xf_system.middleware.LoginMenuMiddleware'
 ]
 
@@ -100,7 +102,8 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'xf.uc_dashboards.context_processors.include_login_form',
                 'xf.xf_system.context_processors.include_user_menu',
-                'library.middleware.load_app_assets_in_context',
+                # 'library.middleware.load_app_assets_in_context',
+                'ledgerlink.middleware.load_app_assets_in_context',
             ],
         },
     },
@@ -110,21 +113,30 @@ WSGI_APPLICATION = 'mainsite.wsgi.application'
 
 DASHGENT_PAGES = 'dashboards'
 
-EXTRA_JS_ASSETS = ('library_js',)
-EXTRA_CSS_ASSETS = ('library_css',)
+# EXTRA_JS_ASSETS = ('library_js',)
+# EXTRA_CSS_ASSETS = ('library_css',)
 
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, '../default.sqlite3'),
-    },
-    'ibbs':{
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, '../IBBS.db'),
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': os.path.join(BASE_DIR, '../default.sqlite3'),
+    # },
+    # 'ibbs':{
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': os.path.join(BASE_DIR, '../IBBS.db'),
+    #
+    # }
 
+    'default': {
+        'NAME': 'ledgerlink',
+        'ENGINE': 'django.db.backends.mysql',
+        'USER': 'grameen',
+        'PORT': '3306',
+        'PASSWORD': 'gram33n1234$',
+        'HOST': '127.0.0.1'
     }
 }
 
@@ -184,11 +196,11 @@ STATICFILES_DIRS = (
 )
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
-FIXTURE_DIRS = (os.path.join(PROJECT_ROOT, 'library/tests/fixtures'),)
+# FIXTURE_DIRS = (os.path.join(PROJECT_ROOT, 'library/tests/fixtures'),)
 
-##FIXTURE_DIRS = (
+# FIXTURE_DIRS = (
 #   os.path.join(BASE_DIR, 'uc_dashboards/fixtures'),
-#)
+# )
 
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
@@ -209,3 +221,7 @@ LANGUAGES = (
 MODELTRANSLATION_DEFAULT_LANGUAGE = 'en-gb'
 
 LANGUAGE_COOKIE_NAME = "lc"
+
+FIXTURES_TO_LOAD_AFTER_MIGRATION  = {
+    'default_pages_and_perspectives_data.json'
+}
