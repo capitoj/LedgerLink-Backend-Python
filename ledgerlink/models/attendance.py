@@ -6,8 +6,8 @@ class Attendance(models.Model):
     AttendanceIdEx = models.IntegerField(blank=True, null=True)
     Comments = models.CharField(max_length=150, blank=True, null=True)
     IsPresent = models.IntegerField(blank=True, null=True)
-    MeetingId = models.ForeignKey("Meeting", blank=False, null=False, on_delete=models.PROTECT)
-    MemberId = models.ForeignKey("Member", blank=False, null=False, on_delete=models.PROTECT)
+    Meeting = models.ForeignKey("Meeting", blank=False, null=False, on_delete=models.PROTECT)
+    Member = models.ForeignKey("Member", blank=False, null=False, on_delete=models.PROTECT)
 
     class Meta:
         managed = True
@@ -16,4 +16,4 @@ class Attendance(models.Model):
 
     def __str__(self):
 
-        return self.AttendanceId
+        return "%s" % self.id

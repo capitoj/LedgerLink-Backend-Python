@@ -14,7 +14,7 @@ class VslaDbActivation(models.Model):
     SimNetworkOperator02 = models.CharField(max_length=255, blank=True, null=True)
     SimSerialNo01 = models.CharField(max_length=255, blank=True, null=True)
     SimSerialNo02 = models.CharField(max_length=255, blank=True, null=True)
-    VslaId = models.ForeignKey("Vsla", blank=False, null=False, on_delete=models.PROTECT)
+    Vsla = models.ForeignKey("Vsla", blank=False, null=False, on_delete=models.PROTECT)
 
     class Meta:
         managed = True

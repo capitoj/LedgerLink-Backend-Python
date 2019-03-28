@@ -8,10 +8,10 @@ class OutstandingWelfare(models.Model):
     ExpectedDate = models.DateField(blank=True, null=True)
     IsCleared = models.IntegerField(blank=True, null=True)
     DateCleared = models.DateField(blank=True, null=True)
-    PaidInMeetingId = models.ForeignKey("Meeting", related_name="outstanding_welfare_paid_in_meeting_id", blank=False, null=False, on_delete=models.PROTECT)
+    PaidInMeeting = models.ForeignKey("Meeting", related_name="outstanding_welfare_paid_in_meeting_id", blank=False, null=False, on_delete=models.PROTECT)
     Comment = models.CharField(max_length=150, blank=True, null=True)
-    MeetingId = models.ForeignKey("Meeting", related_name="outstanding_welfare_issued_in_meeting_id", blank=False, null=False, on_delete=models.PROTECT)
-    MemberId = models.ForeignKey("Member", blank=False, null=False, on_delete=models.PROTECT)
+    Meeting = models.ForeignKey("Meeting", related_name="outstanding_welfare_issued_in_meeting_id", blank=False, null=False, on_delete=models.PROTECT)
+    Member = models.ForeignKey("Member", blank=False, null=False, on_delete=models.PROTECT)
 
     class Meta:
         managed = True

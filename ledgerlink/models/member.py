@@ -15,7 +15,7 @@ class Member(models.Model):
     IsActive = models.IntegerField(blank=True, null=True)
     IsArchived = models.IntegerField(blank=True, null=True)
     PhoneNo = models.CharField(max_length=20, blank=True, null=True)
-    VslaId = models.ForeignKey("Vsla", blank=False, null=False, on_delete=models.PROTECT)
+    Vsla = models.ForeignKey("Vsla", blank=False, null=False, on_delete=models.PROTECT)
 
     class Meta:
         managed = True

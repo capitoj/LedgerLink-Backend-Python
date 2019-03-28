@@ -15,16 +15,16 @@ class Vsla(models.Model):
     GpsLocation = models.CharField(max_length=100, blank=True, null=True)
     DateRegistered = models.DateField(blank=True, null=True)
     DateLinked = models.DateField(blank=True, null=True)
-    RegionId = models.ForeignKey(VslaRegion, blank=False, null=False, on_delete=models.PROTECT)
+    Region = models.ForeignKey(VslaRegion, blank=False, null=False, on_delete=models.PROTECT)
     ContactPerson = models.CharField(max_length=250, blank=True, null=True)
     PositionInVsla = models.CharField(max_length=100, blank=True, null=True)
     PhoneNumber = models.CharField(max_length=50, blank=True, null=True)
-    CBT = models.ForeignKey(TechnicalTrainer, blank=False, null=False, on_delete=models.PROTECT)
+    TechnicalTrainer = models.ForeignKey(TechnicalTrainer, blank=False, null=False, on_delete=models.PROTECT)
     Status = models.IntegerField(blank=False, null=False)
     GroupAccountNumber = models.CharField(max_length=250, blank=True, null=True)
     NumberOfCycles = models.IntegerField(blank=True, null=True)
     Implementer = models.CharField(max_length=200, blank=True, null=True)
-    FinancialInstitutionId = models.ForeignKey(FinancialInstitution, blank=False, null=False, on_delete=models.PROTECT)
+    FinancialInstitution = models.ForeignKey(FinancialInstitution, blank=False, null=False, on_delete=models.PROTECT)
 
     class Meta:
         managed = True

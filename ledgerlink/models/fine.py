@@ -8,9 +8,9 @@ class Fine(models.Model):
     ExpectedDate = models.DateField(blank=True, null=True)
     IsCleared = models.IntegerField(blank=True, null=True)
     DateCleared = models.DateField(blank=True, null=True)
-    IssuedInMeetingId = models.ForeignKey("Meeting", related_name="fine_issued_in_meeting_id", blank=True, null=True, on_delete=models.PROTECT)
-    PaidInMeetingId = models.ForeignKey("Meeting", blank=True, related_name="fine_paid_in_meeting_id", null=True, on_delete=models.PROTECT)
-    MemberId = models.ForeignKey("Member", blank=False, null=False, on_delete=models.PROTECT)
+    IssuedInMeeting = models.ForeignKey("Meeting", related_name="fine_issued_in_meeting_id", blank=True, null=True, on_delete=models.PROTECT)
+    PaidInMeeting = models.ForeignKey("Meeting", blank=True, related_name="fine_paid_in_meeting_id", null=True, on_delete=models.PROTECT)
+    Member = models.ForeignKey("Member", blank=False, null=False, on_delete=models.PROTECT)
     IssuedInMeetingIdEx = models.IntegerField(blank=True, null=True)
     PaidInMeetingIdEx = models.IntegerField(blank=True, null=True)
     FineTypeId = models.IntegerField(blank=True, null=True)
@@ -22,4 +22,4 @@ class Fine(models.Model):
 
     def __str__(self):
 
-        return self.FineId
+        return self.id

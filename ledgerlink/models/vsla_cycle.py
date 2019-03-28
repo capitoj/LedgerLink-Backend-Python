@@ -5,6 +5,7 @@ class VslaCycle(models.Model):
     id = models.AutoField(primary_key=True)
     CycleIdEx = models.IntegerField(blank=True, null=True)
     DateEnded = models.DateField(blank=True, null=True)
+    StartDate = models.DateField(blank=True, null=True)
     EndDate = models.DateField(blank=True, null=True)
     CycleCode = models.CharField(max_length=20, blank=True, null=True)
     InterestRate = models.DecimalField(decimal_places=2, max_digits=10, blank=True, null=True)
@@ -14,7 +15,7 @@ class VslaCycle(models.Model):
     SharedAmount = models.DecimalField(decimal_places=2, max_digits=10, blank=True, null=True)
     SharePrice = models.DecimalField(decimal_places=2, max_digits=10, blank=True, null=True)
     ShareDate = models.DateField(blank=True, null=True)
-    VslaId = models.ForeignKey("Vsla", blank=False, null=False, on_delete=models.PROTECT)
+    Vsla = models.ForeignKey("Vsla", blank=False, null=False, on_delete=models.PROTECT)
     MigratedInterest = models.DecimalField(decimal_places=2, max_digits=10, blank=True, null=True)
     MigratedFines = models.DecimalField(decimal_places=2, max_digits=10, blank=True, null=True)
 
@@ -24,5 +25,5 @@ class VslaCycle(models.Model):
         db_table = 'VslaCycle'
 
     def __str__(self):
-        return self.CycleId
+        return self.id
 

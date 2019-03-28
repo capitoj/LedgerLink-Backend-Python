@@ -18,7 +18,7 @@ class Meeting(models.Model):
     SumOfSavings = models.DecimalField(decimal_places=2, max_digits=10, blank=True, null=True)
     SumOfLoanIssues = models.DecimalField(decimal_places=2, max_digits=10, blank=True, null=True)
     SumOfLoanRepayments = models.DecimalField(decimal_places=2, max_digits=10, blank=True, null=True)
-    CycleId = models.ForeignKey("VslaCycle", blank=False, null=False, on_delete=models.PROTECT)
+    Cycle = models.ForeignKey("VslaCycle", blank=False, null=False, on_delete=models.PROTECT)
     LoanFromBank = models.DecimalField(decimal_places=2, max_digits=10, blank=True, null=True)
     BankLoanRepayment = models.DecimalField(decimal_places=2, max_digits=10, blank=True, null=True)
 
@@ -29,4 +29,4 @@ class Meeting(models.Model):
 
     def __str__(self):
 
-        return self.MeetingId
+        return "%s-%s" % (self.id, self.MeetingDate)

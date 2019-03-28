@@ -12,8 +12,8 @@ class LoanRepayment(models.Model):
     NextDueDate = models.DateField(blank=True, null=True)
     InterestAmount = models.DecimalField(decimal_places=2, max_digits=10, blank=True, null=True)
     RolloverAmount = models.DecimalField(decimal_places=2, max_digits=10, blank=True, null=True)
-    MeetingId = models.ForeignKey("Meeting", blank=False, null=False, on_delete=models.PROTECT)
-    MemberId = models.ForeignKey("Member", blank=False, null=False, on_delete=models.PROTECT)
+    Meeting = models.ForeignKey("Meeting", blank=False, null=False, on_delete=models.PROTECT)
+    Member = models.ForeignKey("Member", blank=False, null=False, on_delete=models.PROTECT)
     LoanId = models.ForeignKey("LoanIssue", blank=False, null=False, on_delete=models.PROTECT)
 
     class Meta:
@@ -23,4 +23,4 @@ class LoanRepayment(models.Model):
 
     def __str__(self):
 
-        return self.RepaymentId
+        return self.id

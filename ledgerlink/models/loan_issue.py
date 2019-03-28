@@ -15,8 +15,8 @@ class LoanIssue(models.Model):
     IsDefaulted = models.IntegerField(blank=True, null=True)
     TotalRepaid = models.DecimalField(decimal_places=2, max_digits=10, blank=True, null=True)
     IsWrittenOff = models.IntegerField(blank=True, null=True)
-    MeetingId = models.ForeignKey("Meeting", blank=False, null=False, on_delete=models.PROTECT)
-    MemberId = models.ForeignKey("Member", blank=False, null=False, on_delete=models.PROTECT)
+    Meeting = models.ForeignKey("Meeting", blank=False, null=False, on_delete=models.PROTECT)
+    Member = models.ForeignKey("Member", blank=False, null=False, on_delete=models.PROTECT)
 
     class Meta:
         managed = True
@@ -25,4 +25,4 @@ class LoanIssue(models.Model):
 
     def __str__(self):
 
-        return self.LoanId
+        return self.id
