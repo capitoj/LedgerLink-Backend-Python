@@ -12,16 +12,16 @@ class VslaForm(XFModelForm):
         self.fields["GpsLocation"].label = "GPS Location"
         self.fields["DateRegistered"].label = "Date Registered"
         self.fields["DateLinked"].label = "Date Linked"
-        self.fields["RegionId"].label = "Region"
+        self.fields["Region"].label = "Region"
         self.fields["ContactPerson"].label = "Contact Person"
         self.fields["PositionInVsla"].label = "Position In Vsla"
         self.fields["PhoneNumber"].label = "Phone Number"
         self.fields["GroupAccountNumber"].label = "Group Account Number"
         self.fields["NumberOfCycles"].label = "Number Of Cycles"
-        self.fields["FinancialInstitutionId"].label = "Financial Institutions"
+        self.fields["FinancialInstitution"].label = "Financial Institutions"
 
 
     class Meta:
         model = Vsla
         title = "Vsla"
-        fields = ["id", "VslaCode", "VslaName", "VslaPhoneMsisdn", "PhysicalAddress", "GpsLocation", "DateRegistered", "DateLinked", "RegionId", "ContactPerson", "PositionInVsla", "PhoneNumber", "CBT", "Status", "GroupAccountNumber", "NumberOfCycles", "Implementer", "FinancialInstitutionId"]
+        fields = ["id", "VslaCode", "VslaName", "VslaPhoneMsisdn", "PhysicalAddress", "GpsLocation", "DateRegistered", "DateLinked", "Region", "ContactPerson", "PositionInVsla", "PhoneNumber", "TechnicalTrainer", "Status", "GroupAccountNumber", "NumberOfCycles", "Implementer", "FinancialInstitution"]
