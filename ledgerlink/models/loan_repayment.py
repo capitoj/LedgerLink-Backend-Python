@@ -22,5 +22,4 @@ class LoanRepayment(models.Model):
         db_table = 'LoanRepayment'
 
     def __str__(self):
-
-        return self.id
+        return str(self.id)

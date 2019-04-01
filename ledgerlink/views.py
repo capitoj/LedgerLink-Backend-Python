@@ -13,50 +13,48 @@ class VslaMasterChildView(XFMasterChildView):
         vsla_instance.url = reverse('crud_savings-group-cycle_list_by-vsla',  kwargs={'related_fk':self.kwargs['pk']})+ "?&embed"
         self.add_related_listview(vsla_instance)
 
-        # widget = XFDivLoader()
-        # widget.caption = "Statistics"
-        # widget.url = "http://127.0.0.1:8001/widgets/mean-bruto/"
-        # self.add_related_listview(widget)
-
         return context
 
-class VslaInstanceMasterChildView(XFMasterChildView):
+class VslaCycleMasterChildView(XFMasterChildView):
     template_name = "form_master_child.html"
 
     def get_context_data(self, **kwargs):
-        context = super(VslaInstanceMasterChildView, self).get_context_data(**kwargs)
+        context = super(VslaCycleMasterChildView, self).get_context_data(**kwargs)
 
         vsla_cycle_instance = XFDivLoader();
         vsla_cycle_instance.caption = "Vsla Meetings"
-        vsla_cycle_instance.url = reverse('crud_savings-group-meeting_list_by-cycle',  kwargs={'related_fk':self.kwargs['pk']})+ "?&embed"
+        vsla_cycle_instance.url = reverse('crud_savings-group-cycle-meeting_list_by-cycle',  kwargs={'related_fk':self.kwargs['pk']})+ "?&embed"
         self.add_related_listview(vsla_cycle_instance)
 
         return context
 
 
-class VslaCycleInstanceMasterChildView(XFMasterChildView):
+class VslaCycleMeetingMasterChildView(XFMasterChildView):
     template_name = "form_master_child.html"
 
     def get_context_data(self, **kwargs):
-        context = super(VslaCycleInstanceMasterChildView, self).get_context_data(**kwargs)
+        context = super(VslaCycleMeetingMasterChildView, self).get_context_data(**kwargs)
 
-        vsla_cycle_instance = XFDivLoader();
-        vsla_cycle_instance.caption = "Vsla Meetings"
-        vsla_cycle_instance.url = reverse('crud_savings-group-meeting_list_by-cyclex',  kwargs={'related_fk':self.kwargs['pk']})+ "?&embed"
-        self.add_related_listview(vsla_cycle_instance)
+        vsla_cycle_meeting_attendance = XFDivLoader();
+        vsla_cycle_meeting_attendance.caption = "Attendance"
+        vsla_cycle_meeting_attendance.url = reverse('crud_savings-group-cycle-meeting-attendance_list_by-meeting-attendance', kwargs={'related_fk':self.kwargs['pk']})+ "?&embed"
+        self.add_related_listview(vsla_cycle_meeting_attendance)
 
-        return context
+        vsla_cycle_meeting_saving = XFDivLoader();
+        vsla_cycle_meeting_saving.caption = "Savings"
+        vsla_cycle_meeting_saving.url = reverse('crud_savings-group-cycle-meeting-saving_list_by-meeting-saving', kwargs={'related_fk':self.kwargs['pk']})+ "?&embed"
+        self.add_related_listview(vsla_cycle_meeting_saving)
 
+        vsla_cycle_meeting_fines = XFDivLoader();
+        vsla_cycle_meeting_fines.caption = "Fines"
+        vsla_cycle_meeting_fines.url = reverse('crud_savings-group-cycle-meeting-fine_list_by-meeting-fine',
+                                                kwargs={'related_fk': self.kwargs['pk']}) + "?&embed"
+        self.add_related_listview(vsla_cycle_meeting_fines)
 
-class MeetingAttendanceMasterChildView(XFMasterChildView):
-    template_name = "form_master_child.html"
-
-    def get_context_data(self, **kwargs):
-        context = super(MeetingAttendanceMasterChildView, self).get_context_data(**kwargs)
-
-        vsla_cycle_instance = XFDivLoader();
-        vsla_cycle_instance.caption = "Vsla Meetings"
-        vsla_cycle_instance.url = reverse('crud_savings-group-meeting-attendance_list_by-meeting',  kwargs={'related_fk':self.kwargs['pk']})+ "?&embed"
-        self.add_related_listview(vsla_cycle_instance)
+        vsla_cycle_meeting_loan_issue = XFDivLoader();
+        vsla_cycle_meeting_loan_issue.caption = "Loan Issues"
+        vsla_cycle_meeting_loan_issue.url = reverse('crud_savings-group-cycle-meeting-loan-issue_list_by-meeting-loan-issue',
+                                               kwargs={'related_fk': self.kwargs['pk']}) + "?&embed"
+        self.add_related_listview(vsla_cycle_meeting_loan_issue)
 
         return context

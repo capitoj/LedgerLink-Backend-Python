@@ -2,16 +2,16 @@ from xf.xf_crud.model_lists import XFModelList
 from xf.xf_crud.xf_classes import XFUIAction, ACTION_ROW_INSTANCE
 
 
-class AttendanceList(XFModelList):
+class Savinglist(XFModelList):
 
     def __init__(self, model):
-        super(AttendanceList, self).__init__(model)
+        super(Savinglist, self).__init__(model)
         self.list_field_list = (
-        "AttendanceIdEx", "Member", "Comments", "IsPresent", "Meeting"
+            "SavingIdEx", "Member", "Amount", "Meeting"
         )
-        self.list_title = "VSLA Attendance List"
+        self.list_title = "VSLA Saving List"
         self.search_hint = "Code, Name"
-        self.list_hint = "Below are the list of VSLA meetings"
+        self.list_hint = "Below are the member's savings"
         self.supported_crud_operations.append("search")
         self.preset_filters = {'': 'All'}
         self.add_javascript("ledgerlink_vsla.js")

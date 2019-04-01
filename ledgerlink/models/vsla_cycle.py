@@ -1,5 +1,7 @@
 from django.db import models
 
+from ledgerlink.models.vsla import Vsla
+
 class VslaCycle(models.Model):
 
     id = models.AutoField(primary_key=True)
@@ -15,7 +17,7 @@ class VslaCycle(models.Model):
     SharedAmount = models.DecimalField(decimal_places=2, max_digits=10, blank=True, null=True)
     SharePrice = models.DecimalField(decimal_places=2, max_digits=10, blank=True, null=True)
     ShareDate = models.DateField(blank=True, null=True)
-    Vsla = models.ForeignKey("Vsla", blank=False, null=False, on_delete=models.PROTECT)
+    Vsla = models.ForeignKey(Vsla, blank=False, null=False, on_delete=models.PROTECT)
     MigratedInterest = models.DecimalField(decimal_places=2, max_digits=10, blank=True, null=True)
     MigratedFines = models.DecimalField(decimal_places=2, max_digits=10, blank=True, null=True)
 
@@ -25,5 +27,5 @@ class VslaCycle(models.Model):
         db_table = 'VslaCycle'
 
     def __str__(self):
-        return self.id
+        return str(self.StartDate)
 

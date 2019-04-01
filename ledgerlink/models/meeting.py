@@ -1,5 +1,7 @@
 from django.db import models
 
+from ledgerlink.models.vsla_cycle import VslaCycle
+
 class Meeting(models.Model):
 
     id = models.AutoField(primary_key=True)
@@ -18,7 +20,7 @@ class Meeting(models.Model):
     SumOfSavings = models.DecimalField(decimal_places=2, max_digits=10, blank=True, null=True)
     SumOfLoanIssues = models.DecimalField(decimal_places=2, max_digits=10, blank=True, null=True)
     SumOfLoanRepayments = models.DecimalField(decimal_places=2, max_digits=10, blank=True, null=True)
-    Cycle = models.ForeignKey("VslaCycle", blank=False, null=False, on_delete=models.PROTECT)
+    VslaCycle = models.ForeignKey(VslaCycle, blank=False, null=False, on_delete=models.PROTECT)
     LoanFromBank = models.DecimalField(decimal_places=2, max_digits=10, blank=True, null=True)
     BankLoanRepayment = models.DecimalField(decimal_places=2, max_digits=10, blank=True, null=True)
 
@@ -28,5 +30,4 @@ class Meeting(models.Model):
         db_table = 'Meeting'
 
     def __str__(self):
-
-        return "%s-%s" % (self.id, self.MeetingDate)
+        return str(self.MeetingDate)

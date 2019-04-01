@@ -21,5 +21,4 @@ class Fine(models.Model):
         db_table = 'Fine'
 
     def __str__(self):
-
-        return self.id
+        return str(self.id)

@@ -16,4 +16,4 @@ class Welfare(models.Model):
 
     def __str__(self):
 
-        return self.WelfareId
+        return self.id

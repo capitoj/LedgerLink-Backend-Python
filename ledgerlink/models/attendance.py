@@ -16,4 +16,4 @@ class Attendance(models.Model):
 
     def __str__(self):
 
-        return "%s" % self.id
+        return str(self.id)

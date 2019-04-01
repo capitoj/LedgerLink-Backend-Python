@@ -14,5 +14,4 @@ class Saving(models.Model):
         db_table = 'Saving'
 
     def __str__(self):
-
-        return self.SavingId
+        return str(self.id)
