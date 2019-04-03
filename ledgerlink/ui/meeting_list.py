@@ -1,3 +1,4 @@
+from ledgerlink.models import Meeting
 from xf.xf_crud.model_lists import XFModelList
 from xf.xf_crud.xf_classes import XFUIAction, ACTION_ROW_INSTANCE
 
@@ -28,3 +29,9 @@ class MeetingList(XFModelList):
         self.row_action_list.extend(
             (XFUIAction('overview', 'View details', 'view', action_type=ACTION_ROW_INSTANCE, use_ajax=False, column_index=1),)
         )
+
+    def get_queryset(self, search_string, model, preset_filter, view_kwargs=None):
+        if view_kwargs is not None:
+            return Meeting.objects.filter(VslaCycle_id = view_kwargs['related_fk'])
+        else:
+            return Meeting.objects.all()
