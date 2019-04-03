@@ -30,6 +30,6 @@ class FineList(XFModelList):
 
     def get_queryset(self, search_string, model, preset_filter, view_kwargs=None):
         if view_kwargs is not None:
-            return Fine.objects.filter(IssuedInMeeting_id = view_kwargs['related_fk'])
-        else:
-            return Fine.objects.all()
+            if "related_fk" in view_kwargs:
+                return Fine.objects.filter(IssuedInMeeting_id = view_kwargs['related_fk'])
+        return Fine.objects.all()

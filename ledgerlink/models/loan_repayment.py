@@ -1,4 +1,7 @@
 from django.db import models
+from ledgerlink.models.meeting import Meeting
+from ledgerlink.models.member import Member
+from ledgerlink.models.loan_issue import LoanIssue
 
 class LoanRepayment(models.Model):
 
@@ -12,9 +15,9 @@ class LoanRepayment(models.Model):
     NextDueDate = models.DateField(blank=True, null=True)
     InterestAmount = models.DecimalField(decimal_places=2, max_digits=10, blank=True, null=True)
     RolloverAmount = models.DecimalField(decimal_places=2, max_digits=10, blank=True, null=True)
-    Meeting = models.ForeignKey("Meeting", blank=False, null=False, on_delete=models.PROTECT)
-    Member = models.ForeignKey("Member", blank=False, null=False, on_delete=models.PROTECT)
-    LoanId = models.ForeignKey("LoanIssue", blank=False, null=False, on_delete=models.PROTECT)
+    Meeting = models.ForeignKey(Meeting, blank=False, null=False, on_delete=models.PROTECT)
+    Member = models.ForeignKey(Member, blank=False, null=False, on_delete=models.PROTECT)
+    LoanIssue = models.ForeignKey(LoanIssue, blank=False, null=False, on_delete=models.PROTECT)
 
     class Meta:
         managed = True

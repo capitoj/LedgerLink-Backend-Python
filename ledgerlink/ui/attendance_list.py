@@ -27,6 +27,6 @@ class AttendanceList(XFModelList):
 
     def get_queryset(self, search_string, model, preset_filter, view_kwargs=None):
         if view_kwargs != None:
-            return Attendance.objects.filter(Meeting_id = view_kwargs['related_fk'])
-        else:
-            return Attendance.objects.all()
+            if "related_fk" in view_kwargs:
+                return Attendance.objects.filter(Meeting_id = view_kwargs['related_fk'])
+        return Attendance.objects.all()

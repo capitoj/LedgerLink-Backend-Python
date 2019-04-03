@@ -31,6 +31,6 @@ class LoanIssueList(XFModelList):
 
     def get_queryset(self, search_string, model, preset_filter, view_kwargs=None):
         if view_kwargs is not None:
-            return LoanIssue.objects.filter(Meeting_id = view_kwargs['related_fk'])
-        else:
-            return LoanIssue.objects.all()
+            if "related_fk" in view_kwargs:
+                return LoanIssue.objects.filter(Meeting_id = view_kwargs['related_fk'])
+        return LoanIssue.objects.all()

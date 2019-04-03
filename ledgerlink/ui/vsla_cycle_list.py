@@ -27,6 +27,6 @@ class VslaCycleList(XFModelList):
 
     def get_queryset(self, search_string, model, preset_filter, view_kwargs=None):
         if view_kwargs is not None:
-            return VslaCycle.objects.filter(Vsla_id = view_kwargs['related_fk'])
-        else:
-            return VslaCycle.objects.all()
+            if "related_fk" in view_kwargs:
+                return VslaCycle.objects.filter(Vsla_id = view_kwargs['related_fk'])
+        return VslaCycle.objects.all()

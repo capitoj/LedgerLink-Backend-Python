@@ -57,4 +57,25 @@ class VslaCycleMeetingMasterChildView(XFMasterChildView):
                                                kwargs={'related_fk': self.kwargs['pk']}) + "?&embed"
         self.add_related_listview(vsla_cycle_meeting_loan_issue)
 
+        vsla_cycle_meeting_loan_repayment = XFDivLoader();
+        vsla_cycle_meeting_loan_repayment.caption = "Loan Repayment"
+        vsla_cycle_meeting_loan_repayment.url = reverse(
+            'crud_savings-group-cycle-meeting-loan-repayment_list_by-meeting-loan-repayment',
+            kwargs={'related_fk': self.kwargs['pk']}) + "?&embed"
+        self.add_related_listview(vsla_cycle_meeting_loan_repayment)
+
+        vsla_cycle_meeting_welfare = XFDivLoader();
+        vsla_cycle_meeting_welfare.caption = "Welfare"
+        vsla_cycle_meeting_welfare.url = reverse(
+            'crud_savings-group-cycle-meeting-welfare_list_by-meeting-welfare',
+            kwargs={'related_fk': self.kwargs['pk']}) + "?&embed"
+        self.add_related_listview(vsla_cycle_meeting_welfare)
+
+        vsla_cycle_meeting_outstanding_welfare = XFDivLoader();
+        vsla_cycle_meeting_outstanding_welfare.caption = "Outstanding Welfare"
+        vsla_cycle_meeting_outstanding_welfare.url = reverse(
+            'crud_savings-group-cycle-meeting-outstanding-welfare_list_by-meeting-outstanding-welfare',
+            kwargs={'related_fk': self.kwargs['pk']}) + "?&embed"
+        self.add_related_listview(vsla_cycle_meeting_outstanding_welfare)
+
         return context

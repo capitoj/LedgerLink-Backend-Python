@@ -32,6 +32,6 @@ class MeetingList(XFModelList):
 
     def get_queryset(self, search_string, model, preset_filter, view_kwargs=None):
         if view_kwargs is not None:
-            return Meeting.objects.filter(VslaCycle_id = view_kwargs['related_fk'])
-        else:
-            return Meeting.objects.all()
+            if "related_fk" in view_kwargs:
+                return Meeting.objects.filter(VslaCycle_id = view_kwargs['related_fk'])
+        return Meeting.objects.all()

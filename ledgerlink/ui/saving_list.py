@@ -25,6 +25,6 @@ class Savinglist(XFModelList):
 
     def get_queryset(self, search_string, model, preset_filter, view_kwargs=None):
         if view_kwargs is not None:
-            return Saving.objects.filter(Meeting_id = view_kwargs['related_fk'])
-        else:
-            return Saving.objects.all()
+            if "related_fk" in view_kwargs:
+                return Saving.objects.filter(Meeting_id = view_kwargs['related_fk'])
+        return Saving.objects.all()

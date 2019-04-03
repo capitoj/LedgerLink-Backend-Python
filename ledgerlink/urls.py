@@ -1,11 +1,13 @@
 from ledgerlink.models import VslaRegion, Vsla, FinancialInstitution, TechnicalTrainer, VslaCycle, Meeting, Attendance, \
-    Saving, Fine, LoanIssue
+    Saving, Fine, LoanIssue, LoanRepayment, Welfare, OutstandingWelfare
 from ledgerlink.ui.attendance_list import AttendanceList
 from ledgerlink.ui.financial_institution_form import FinancialInstitutionForm
 from ledgerlink.ui.financial_institution_list import FinancialInstitutionList
 from ledgerlink.ui.fine_list import FineList
 from ledgerlink.ui.loan_issue_list import LoanIssueList
+from ledgerlink.ui.loan_repayment_list import LoanRepaymentList
 from ledgerlink.ui.meeting_list import MeetingList
+from ledgerlink.ui.outstanding_welfare_list import OutstandingWelfareList
 from ledgerlink.ui.saving_list import Savinglist
 from ledgerlink.ui.technical_trainer_form import TechnicalTrainerForm
 from ledgerlink.ui.technical_trainer_list import TechnicalTrainerList
@@ -14,6 +16,7 @@ from ledgerlink.ui.vsla_form import VslaForm
 from ledgerlink.ui.vsla_list import VslaList
 from ledgerlink.ui.vsla_region_form import VslaRegionForm
 from ledgerlink.ui.vsla_region_list import VslaRegionList
+from ledgerlink.ui.welfare_list import WelfareList
 from ledgerlink.views import VslaMasterChildView, VslaCycleMasterChildView, VslaCycleMeetingMasterChildView
 from xf.xf_crud.crud_url_builder import XFCrudURLBuilder
 from xf.xf_crud.xf_crud_helpers import crudurl
@@ -29,6 +32,9 @@ vsla_cycle_meeting_attendance_builder = XFCrudURLBuilder(url_app_name="crud", ur
 vsla_cycle_meeting_saving_builder = XFCrudURLBuilder(url_app_name="crud", url_model_name="savings-group-cycle-meeting-saving", model_type=Saving)
 vsla_cycle_meeting_fine_builder = XFCrudURLBuilder(url_app_name="crud", url_model_name="savings-group-cycle-meeting-fine", model_type=Fine)
 vsla_cycle_meeting_loan_issue_builder = XFCrudURLBuilder(url_app_name="crud", url_model_name="savings-group-cycle-meeting-loan-issue", model_type=LoanIssue)
+vsla_cycle_meeting_loan_repayment_builder = XFCrudURLBuilder(url_app_name="crud", url_model_name="savings-group-cycle-meeting-loan-repayment", model_type=LoanRepayment)
+vsla_cycle_meeting_welfare_builder = XFCrudURLBuilder(url_app_name="crud", url_model_name="savings-group-cycle-meeting-welfare", model_type=Welfare)
+vsla_cycle_meeting_oustanding_welfare_builder = XFCrudURLBuilder(url_app_name="crud", url_model_name="savings-group-cycle-meeting-outstanding-welfare", model_type=OutstandingWelfare)
 #
 # #List of Cycles by VSLA
 urlpatterns += [vsla_builder.get_list_related_url(list_class_type=VslaList, url_related_name="by-institution", foreign_key_name="financialinstitution")]
@@ -38,6 +44,9 @@ urlpatterns += [vsla_cycle_meeting_attendance_builder.get_list_related_url(list_
 urlpatterns += [vsla_cycle_meeting_saving_builder.get_list_related_url(list_class_type=Savinglist, url_related_name="by-meeting-saving", foreign_key_name="meeting")]
 urlpatterns += [vsla_cycle_meeting_fine_builder.get_list_related_url(list_class_type=FineList, url_related_name="by-meeting-fine", foreign_key_name="meeting")]
 urlpatterns += [vsla_cycle_meeting_loan_issue_builder.get_list_related_url(list_class_type=LoanIssueList, url_related_name="by-meeting-loan-issue", foreign_key_name="meeting")]
+urlpatterns += [vsla_cycle_meeting_loan_repayment_builder.get_list_related_url(list_class_type=LoanRepaymentList, url_related_name="by-meeting-loan-repayment", foreign_key_name="meeting")]
+urlpatterns += [vsla_cycle_meeting_welfare_builder.get_list_related_url(list_class_type=WelfareList, url_related_name="by-meeting-welfare", foreign_key_name="meeting")]
+urlpatterns += [vsla_cycle_meeting_oustanding_welfare_builder.get_list_related_url(list_class_type=OutstandingWelfareList, url_related_name="by-meeting-outstanding-welfare", foreign_key_name="meeting")]
 #
 # #Master Child pages
 #
@@ -55,6 +64,9 @@ urlpatterns += crudurl("crud", "savings-group-cycle-meeting-attendance", Attenda
 urlpatterns += crudurl("crud", "savings-group-cycle-meeting-saving", Saving, None, Savinglist)
 urlpatterns += crudurl("crud", "savings-group-cycle-meeting-fine", Fine, None, FineList)
 urlpatterns += crudurl("crud", "savings-group-cycle-meeting-loan-issue", LoanIssue, None, LoanIssueList)
+urlpatterns += crudurl("crud", "savings-group-cycle-meeting-loan-repayment", LoanRepayment, None, LoanRepaymentList)
+urlpatterns += crudurl("crud", "savings-group-cycle-meeting-welfare", Welfare, None, WelfareList)
+urlpatterns += crudurl("crud", "savings-group-cycle-meeting-outstanding-welfare", OutstandingWelfare, None, OutstandingWelfareList)
 urlpatterns += crudurl("crud", "savings-groups", Vsla, VslaForm, VslaList)
 urlpatterns += crudurl("crud", "financial-institutions", FinancialInstitution, FinancialInstitutionForm, FinancialInstitutionList)
 urlpatterns += crudurl("crud", "vsla-regions", VslaRegion, VslaRegionForm, VslaRegionList)
