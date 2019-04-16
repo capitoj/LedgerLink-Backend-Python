@@ -9,7 +9,7 @@ class LoanIssue(models.Model):
     LoanIdEx = models.IntegerField(blank=True, null=True)
     LoanNo = models.IntegerField(blank=True, null=True)
     PrincipalAmount = models.DecimalField(decimal_places=2, max_digits=10, blank=True, null=True)
-    InterestAmout = models.DecimalField(decimal_places=2, max_digits=10, blank=True, null=True)
+    InterestAmount = models.DecimalField(decimal_places=2, max_digits=10, blank=True, null=True)
     Balance = models.DecimalField(decimal_places=2, max_digits=10, blank=True, null=True)
     Comments = models.CharField(max_length=150, blank=True, null=True)
     DateCleared = models.DateField(blank=True, null=True)
@@ -27,4 +27,4 @@ class LoanIssue(models.Model):
         db_table = 'LoanIssue'
 
     def __str__(self):
-        return str(self.id)
+        return str(self.Balance)
