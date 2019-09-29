@@ -1,5 +1,16 @@
-from ledgerlink.models import VslaRegion, Vsla, FinancialInstitution, TechnicalTrainer, VslaCycle, Meeting, Attendance, \
-    Saving, Fine, LoanIssue, LoanRepayment, Welfare, OutstandingWelfare
+from ledgerlink.models.vsla_region import VslaRegion
+from ledgerlink.models.vsla import Vsla
+from ledgerlink.models.financial_institution import FinancialInstitution
+from ledgerlink.models.technical_trainer import TechnicalTrainer
+from ledgerlink.models.vsla_cycle import VslaCycle
+from ledgerlink.models.meeting import Meeting
+from ledgerlink.models.attendance import Attendance
+from ledgerlink.models.saving import Saving
+from ledgerlink.models.fine import Fine
+from ledgerlink.models.loan_issue import LoanIssue
+from ledgerlink.models.loan_repayment import LoanRepayment
+from ledgerlink.models.welfare import Welfare
+from ledgerlink.models.outstanding_welfare import OutstandingWelfare
 from ledgerlink.ui.attendance_list import AttendanceList
 from ledgerlink.ui.financial_institution_form import FinancialInstitutionForm
 from ledgerlink.ui.financial_institution_list import FinancialInstitutionList

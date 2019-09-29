@@ -1,5 +1,7 @@
 from xf.xf_crud.model_lists import XFModelList
 from xf.xf_crud.xf_classes import XFUIAction
+from ledgerlink.models.vsla import Vsla
+from ledgerlink.models.financial_institution import FinancialInstitution
 
 
 class VslaList(XFModelList):
@@ -12,10 +14,35 @@ class VslaList(XFModelList):
         self.list_hint = "Below are the list of VSLAs"
         self.supported_crud_operations.append("search")
         self.preset_filters = {'':'All'}
-        self.add_javascript("ledgerlink_vsla.js")
+        self.add_javascript("ledgerlink.js")
 
         self.row_action_list.append(XFUIAction('overview', 'View Cycles', 'view', use_ajax=False, column_index=1))
 
-        def prepare_actions(self):
-            super().prepare_actions()
-            # self.instance_action_list.remove(self.get_entity_action('delete'))
+    def prepare_actions(self):
+        super().prepare_actions()
+        self.instance_action_list.remove(self.get_entity_action('delete'))
+
+    def get_queryset(self, search_string, model, preset_filter, view_kwargs=None):
+
+        financial_institution_ids = []
+        if "preset_filter" in view_kwargs:
+            if self.request.user.has_perm(view_kwargs.get("preset_filter")):
+                model_objects = FinancialInstitution.objects.filter(Code__in = [view_kwargs.get("preset_filter")])
+                if model_objects.count() == 1:
+                    for model_object in model_objects:
+                        financial_institution_ids.append(model_object.id)
+                    return Vsla.objects.filter(FinancialInstitution_id__in = financial_institution_ids)
+                else:
+                    return Vsla.objects.none()
+            else:
+                return Vsla.objects.none()
+        else:
+            financial_institutions = FinancialInstitution.objects.all()
+            for model_object in financial_institutions:
+                if self.request.user.has_perm(model_object.Code):
+                    financial_institution_ids.append(model_object.id)
+
+            if len(financial_institution_ids) > 0:
+                return Vsla.objects.filter(FinancialInstitution_id__in = financial_institution_ids)
+            else:
+                return Vsla.objects.none()

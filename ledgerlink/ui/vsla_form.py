@@ -16,7 +16,7 @@ class VslaForm(XFModelForm):
         self.fields["ContactPerson"].label = "Contact Person"
         self.fields["PositionInVsla"].label = "Position In Vsla"
         self.fields["PhoneNumber"].label = "Phone Number"
-        self.fields["GroupAccountNumber"].label = "Group Account Number"
+        self.fields["GroupAccountNumber"].label = "Account Number"
         self.fields["NumberOfCycles"].label = "Number Of Cycles"
         self.fields["FinancialInstitution"].label = "Financial Institutions"
 

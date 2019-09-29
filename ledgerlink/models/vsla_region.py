@@ -1,7 +1,7 @@
 from django.db import models
 
-class VslaRegion(models.Model):
 
+class VslaRegion(models.Model):
     id = models.AutoField(primary_key=True)
     RegionCode = models.CharField(max_length=255, blank=True, null=True)
     RegionName = models.CharField(max_length=255, blank=True, null=True)
@@ -12,4 +12,4 @@ class VslaRegion(models.Model):
         db_table = 'VslaRegion'
 
     def __str__(self):
-        return "%s" % (self.RegionName)
+        return "%s" % self.RegionName

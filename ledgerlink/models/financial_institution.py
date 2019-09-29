@@ -10,6 +10,12 @@ class FinancialInstitution(models.Model):
     class Meta:
         managed = True
         default_permissions = ('add', 'change', 'delete', 'view', 'list')
+        permissions = [
+            ("post_bank_uganda", "can access Post Bank Uganda data"),
+            ("finca_uganda_limited", "can access Finca Uganda Limited data"),
+            ("barclays_bank_of_uganda", "can access Barclays Bank of Uganda data"),
+            ("rural_finance_initiative", "can access Rural Finance Initiative data")
+        ]
         db_table = 'FinancialInstitution'
 
     def __str__(self):
