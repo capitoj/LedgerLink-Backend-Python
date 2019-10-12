@@ -2,6 +2,7 @@ from xf.xf_crud.model_lists import XFModelList
 from xf.xf_crud.xf_classes import XFUIAction
 from ledgerlink.models.vsla import Vsla
 from ledgerlink.models.financial_institution import FinancialInstitution
+from django.db.models import Q
 
 
 class VslaList(XFModelList):
@@ -10,7 +11,7 @@ class VslaList(XFModelList):
         super(VslaList, self).__init__(model)
         self.list_field_list = ("VslaCode", "VslaName", "VslaPhoneMsisdn", "PhoneNumber", "NumberOfCycles")
         self.list_title = "VSLA List"
-        self.search_hint = "Code, Name"
+        self.search_hint = "VSLA Name, Physical Address"
         self.list_hint = "Below are the list of VSLAs"
         self.supported_crud_operations.append("search")
         self.preset_filters = {'':'All'}
@@ -31,18 +32,21 @@ class VslaList(XFModelList):
                 if model_objects.count() == 1:
                     for model_object in model_objects:
                         financial_institution_ids.append(model_object.id)
-                    return Vsla.objects.filter(FinancialInstitution_id__in = financial_institution_ids)
+                    return Vsla.objects.filter(FinancialInstitution_id__in = financial_institution_ids).filter(Q(VslaName__icontains=search_string) | Q(PhysicalAddress__icontains=search_string))
                 else:
                     return Vsla.objects.none()
             else:
                 return Vsla.objects.none()
         else:
-            financial_institutions = FinancialInstitution.objects.all()
-            for model_object in financial_institutions:
-                if self.request.user.has_perm(model_object.Code):
-                    financial_institution_ids.append(model_object.id)
+            if self.request.user.is_superuser:
+                financial_institutions = FinancialInstitution.objects.all()
+                for model_object in financial_institutions:
+                    if self.request.user.has_perm(model_object.Code):
+                        financial_institution_ids.append(model_object.id)
 
-            if len(financial_institution_ids) > 0:
-                return Vsla.objects.filter(FinancialInstitution_id__in = financial_institution_ids)
+                if len(financial_institution_ids) > 0:
+                    return Vsla.objects.filter(FinancialInstitution_id__in = financial_institution_ids).filter(Q(VslaName__icontains=search_string) | Q(PhysicalAddress__icontains=search_string))
+                else:
+                    return Vsla.objects.none()
             else:
                 return Vsla.objects.none()
