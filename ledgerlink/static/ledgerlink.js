@@ -8,7 +8,9 @@ function crud_form_loaded(formName, action){
 function vsla_form_loaded(){
 
     var vslaCode = generateVslaCode(4) + "" + new Date().getUTCFullYear() + "" + (new Date().getMonth()+1) + "" + new Date().getDate() + "" + new Date().getMilliseconds();
-    $("#id_VslaCode").val(vslaCode);
+    if($("#id_VslaCode").val().length === 0) {
+        $("#id_VslaCode").val(vslaCode);
+    }
     $("#id_VslaCode").prop("readonly", true);
 }
 
