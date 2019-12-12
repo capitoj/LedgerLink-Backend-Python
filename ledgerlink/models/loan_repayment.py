@@ -17,7 +17,7 @@ class LoanRepayment(models.Model):
     RolloverAmount = models.DecimalField(decimal_places=2, max_digits=10, blank=True, null=True)
     Meeting = models.ForeignKey(Meeting, blank=False, null=False, on_delete=models.PROTECT)
     Member = models.ForeignKey(Member, blank=False, null=False, on_delete=models.PROTECT)
-    LoanIssue = models.ForeignKey(LoanIssue, blank=False, null=False, on_delete=models.PROTECT)
+    LoanIssue = models.ForeignKey(LoanIssue, blank=False, null=True, on_delete=models.PROTECT)
 
     class Meta:
         managed = True
