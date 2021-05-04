@@ -12,4 +12,4 @@ class VslaRegion(models.Model):
         db_table = 'VslaRegion'
 
     def __str__(self):
-        return "%s" % self.RegionName
+        return self.RegionName

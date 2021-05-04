@@ -15,7 +15,7 @@ class AttendanceList(XFModelList):
         self.list_title = "VSLA Attendance List"
         self.search_hint = "Code, Name"
         self.list_hint = "Below are the list of VSLA meetings"
-        self.supported_crud_operations.append("search")
+        # self.supported_crud_operations.append("search")
         self.preset_filters = {'': 'All'}
         self.add_javascript("ledgerlink_vsla.js")
 

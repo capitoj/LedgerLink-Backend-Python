@@ -1,4 +1,5 @@
-from ledgerlink.models import Vsla
+from ledgerlink.models.vsla import Vsla
+from ledgerlink.models.financial_institution import FinancialInstitution
 from xf.xf_crud.model_forms import XFModelForm
 
 class VslaForm(XFModelForm):
@@ -18,7 +19,12 @@ class VslaForm(XFModelForm):
         self.fields["PhoneNumber"].label = "Phone Number"
         self.fields["GroupAccountNumber"].label = "Account Number"
         self.fields["NumberOfCycles"].label = "Number Of Cycles"
+
         self.fields["FinancialInstitution"].label = "Financial Institutions"
+        for variable in kwargs:
+            print("Financial Institution " + variable)
+        # if "preset_filter" in kwargs:
+        #     self.fields["FinancialInstitution"].queryset =  FinancialInstitution.objects.filter(Code__in = [kwargs.get("preset_filter")])
 
 
     class Meta:

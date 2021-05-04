@@ -13,6 +13,17 @@ class VslaMasterChildView(XFMasterChildView):
         vsla_instance.url = reverse('crud_savings-group-cycle_list_by-vsla',  kwargs={'related_fk':self.kwargs['pk']})+ "?&embed"
         self.add_related_listview(vsla_instance)
 
+        vsla_members_instance = XFDivLoader()
+        vsla_members_instance.caption = "Members"
+        vsla_members_instance.url = reverse('crud_savings-group-members_list_by-vsla', kwargs={'related_fk': self.kwargs['pk']}) + "?&embed"
+        self.add_related_listview(vsla_members_instance)
+
+        vsla_creditscore_instancce = XFDivLoader()
+        vsla_creditscore_instancce.caption = "Credit Score"
+        vsla_creditscore_instancce.url = reverse('crud_savings-group-credit-score_list_by-vsla',
+                                                       kwargs={'related_fk': self.kwargs['pk']}) + "?&embed"
+        self.add_related_listview(vsla_creditscore_instancce)
+
         return context
 
 class VslaCycleMasterChildView(XFMasterChildView):
@@ -21,10 +32,15 @@ class VslaCycleMasterChildView(XFMasterChildView):
     def get_context_data(self, **kwargs):
         context = super(VslaCycleMasterChildView, self).get_context_data(**kwargs)
 
-        vsla_cycle_instance = XFDivLoader();
-        vsla_cycle_instance.caption = "Vsla Meetings"
-        vsla_cycle_instance.url = reverse('crud_savings-group-cycle-meeting_list_by-cycle',  kwargs={'related_fk':self.kwargs['pk']})+ "?&embed"
-        self.add_related_listview(vsla_cycle_instance)
+        vsla_cycle_meeting_instance = XFDivLoader()
+        vsla_cycle_meeting_instance.caption = "Vsla Meetings"
+        vsla_cycle_meeting_instance.url = reverse('crud_savings-group-cycle-meeting_list_by-cycle',  kwargs={'related_fk':self.kwargs['pk']})+ "?&embed"
+        self.add_related_listview(vsla_cycle_meeting_instance)
+
+        vsla_cycle_creditscore_instancce = XFDivLoader()
+        vsla_cycle_creditscore_instancce.caption = "Credit Score"
+        vsla_cycle_creditscore_instancce.url = reverse('crud_savings-group-cycle-meeting_list_by-cycle',  kwargs={'related_fk':self.kwargs['pk']})+ "?&embed"
+        self.add_related_listview(vsla_cycle_creditscore_instancce)
 
         return context
 

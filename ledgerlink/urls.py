@@ -1,3 +1,5 @@
+from ledgerlink.models import Member
+from ledgerlink.models.vsla_credit_score import VslaCreditScore
 from ledgerlink.models.vsla_region import VslaRegion
 from ledgerlink.models.vsla import Vsla
 from ledgerlink.models.financial_institution import FinancialInstitution
@@ -11,6 +13,8 @@ from ledgerlink.models.loan_issue import LoanIssue
 from ledgerlink.models.loan_repayment import LoanRepayment
 from ledgerlink.models.welfare import Welfare
 from ledgerlink.models.outstanding_welfare import OutstandingWelfare
+from ledgerlink.ui.vsla_credit_score_list import VslaCreditScoreList
+from ledgerlink.ui.vsla_member_list import VslaMemberList
 from ledgerlink.ui.attendance_list import AttendanceList
 from ledgerlink.ui.financial_institution_form import FinancialInstitutionForm
 from ledgerlink.ui.financial_institution_list import FinancialInstitutionList
@@ -38,6 +42,8 @@ urlpatterns = []
 
 vsla_builder = XFCrudURLBuilder(url_app_name="crud", url_model_name="savings-groups", model_type=Vsla)
 vsla_cycle_builder = XFCrudURLBuilder(url_app_name="crud", url_model_name="savings-group-cycle", model_type=VslaCycle)
+vsla_cycle_member_builder = XFCrudURLBuilder(url_app_name="crud", url_model_name="savings-group-members", model_type=Member)
+vsla_credit_score_builder = XFCrudURLBuilder(url_app_name="crud", url_model_name="savings-group-credit-score", model_type=VslaCreditScore)
 vsla_cycle_meeting_builder = XFCrudURLBuilder(url_app_name="crud", url_model_name="savings-group-cycle-meeting", model_type=Meeting)
 vsla_cycle_meeting_attendance_builder = XFCrudURLBuilder(url_app_name="crud", url_model_name="savings-group-cycle-meeting-attendance", model_type=Attendance)
 vsla_cycle_meeting_saving_builder = XFCrudURLBuilder(url_app_name="crud", url_model_name="savings-group-cycle-meeting-saving", model_type=Saving)
@@ -50,6 +56,8 @@ vsla_cycle_meeting_oustanding_welfare_builder = XFCrudURLBuilder(url_app_name="c
 # #List of Cycles by VSLA
 urlpatterns += [vsla_builder.get_list_related_url(list_class_type=VslaList, url_related_name="by-institution", foreign_key_name="financialinstitution")]
 urlpatterns += [vsla_cycle_builder.get_list_related_url(list_class_type=VslaCycleList, url_related_name="by-vsla", foreign_key_name="vsla")]
+urlpatterns += [vsla_cycle_member_builder.get_list_related_url(list_class_type=VslaMemberList, url_related_name="by-vsla", foreign_key_name="member")]
+urlpatterns += [vsla_credit_score_builder.get_list_related_url(list_class_type=VslaCreditScoreList, url_related_name="by-vsla", foreign_key_name="vslacreditscore")]
 urlpatterns += [vsla_cycle_meeting_builder.get_list_related_url(list_class_type=MeetingList, url_related_name="by-cycle", foreign_key_name="vsla_cycle")]
 urlpatterns += [vsla_cycle_meeting_attendance_builder.get_list_related_url(list_class_type=AttendanceList, url_related_name="by-meeting-attendance", foreign_key_name="meeting")]
 urlpatterns += [vsla_cycle_meeting_saving_builder.get_list_related_url(list_class_type=Savinglist, url_related_name="by-meeting-saving", foreign_key_name="meeting")]
@@ -78,6 +86,8 @@ urlpatterns += crudurl("crud", "savings-group-cycle-meeting-loan-issue", LoanIss
 urlpatterns += crudurl("crud", "savings-group-cycle-meeting-loan-repayment", LoanRepayment, None, LoanRepaymentList)
 urlpatterns += crudurl("crud", "savings-group-cycle-meeting-welfare", Welfare, None, WelfareList)
 urlpatterns += crudurl("crud", "savings-group-cycle-meeting-outstanding-welfare", OutstandingWelfare, None, OutstandingWelfareList)
+urlpatterns += crudurl("crud", "savings-group-members", Member, None, VslaMemberList)
+urlpatterns += crudurl("crud", "savings-group-credit-score", VslaCreditScore, None, VslaCreditScoreList)
 urlpatterns += crudurl("crud", "savings-groups", Vsla, VslaForm, VslaList)
 urlpatterns += crudurl("crud", "financial-institutions", FinancialInstitution, FinancialInstitutionForm, FinancialInstitutionList)
 urlpatterns += crudurl("crud", "vsla-regions", VslaRegion, VslaRegionForm, VslaRegionList)
