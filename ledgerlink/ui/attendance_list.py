@@ -21,7 +21,7 @@ class AttendanceList(XFModelList):
 
 
     def initialise_action_lists(self):
-        self.row_action_list.extend(
+        self.instance_action_list.extend(
             (XFUIAction('details', 'View details', 'view', action_type=ACTION_ROW_INSTANCE, use_ajax=False),)
         )
 

@@ -17,7 +17,7 @@ class VslaList(XFModelList):
         self.preset_filters = {'':'All'}
         self.add_javascript("ledgerlink.js")
 
-        self.row_action_list.append(XFUIAction('overview', 'View Cycles', 'view', use_ajax=False, column_index=1))
+        self.instance_action_list.append(XFUIAction('overview', 'View Cycles', 'view', use_ajax=False, column_index=1))
 
     def prepare_actions(self):
         super().prepare_actions()
