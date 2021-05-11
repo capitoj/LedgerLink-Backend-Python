@@ -17,6 +17,7 @@ from ledgerlink.models.welfare import Welfare
 from ledgerlink.models.financial_institution import FinancialInstitution
 from ledgerlink.models.vsla_db_activation import VslaDbActivation
 from ledgerlink.models.vsla_banking_history import VslaBankingHistory
+from ledgerlink.models.vsla_credit_score import VslaCreditScore
 
 admin.site.register(VslaRegion)
 admin.site.register(TechnicalTrainer)
@@ -35,3 +36,4 @@ admin.site.register(Member)
 admin.site.register(DataSubmission)
 admin.site.register(VslaDbActivation)
 admin.site.register(VslaBankingHistory)
+admin.site.register(VslaCreditScore)

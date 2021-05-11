@@ -14,6 +14,8 @@ class XFMainAppConfig(AppConfig):
         from xf.xf_system.models import XFSiteSettings
         from xf.xf_system.views import XFNavigationViewMixin
 
+        table_exists = False
+
         try:
             table_exists = "xf_system_xfsitesettings" in connection.introspection.table_names()
             settings = XFSiteSettings.objects.filter(settings_key='default')

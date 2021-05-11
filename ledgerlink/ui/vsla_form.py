@@ -19,7 +19,6 @@ class VslaForm(XFModelForm):
         self.fields["PhoneNumber"].label = "Phone Number"
         self.fields["GroupAccountNumber"].label = "Account Number"
         self.fields["NumberOfCycles"].label = "Number Of Cycles"
-
         self.fields["FinancialInstitution"].label = "Financial Institutions"
         for variable in kwargs:
             print("Financial Institution " + variable)

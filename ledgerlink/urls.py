@@ -1,5 +1,7 @@
 from ledgerlink.models import Member
 from ledgerlink.models.vsla_credit_score import VslaCreditScore
+from ledgerlink.ui.vsla_credit_score_form import VslaCreditScoreForm
+from ledgerlink.ui.vsla_credit_score_list import VslaCreditScoreList
 from ledgerlink.models.vsla_region import VslaRegion
 from ledgerlink.models.vsla import Vsla
 from ledgerlink.models.financial_institution import FinancialInstitution
@@ -13,7 +15,6 @@ from ledgerlink.models.loan_issue import LoanIssue
 from ledgerlink.models.loan_repayment import LoanRepayment
 from ledgerlink.models.welfare import Welfare
 from ledgerlink.models.outstanding_welfare import OutstandingWelfare
-from ledgerlink.ui.vsla_credit_score_list import VslaCreditScoreList
 from ledgerlink.ui.vsla_member_list import VslaMemberList
 from ledgerlink.ui.attendance_list import AttendanceList
 from ledgerlink.ui.financial_institution_form import FinancialInstitutionForm
@@ -87,7 +88,7 @@ urlpatterns += crudurl("crud", "savings-group-cycle-meeting-loan-repayment", Loa
 urlpatterns += crudurl("crud", "savings-group-cycle-meeting-welfare", Welfare, None, WelfareList)
 urlpatterns += crudurl("crud", "savings-group-cycle-meeting-outstanding-welfare", OutstandingWelfare, None, OutstandingWelfareList)
 urlpatterns += crudurl("crud", "savings-group-members", Member, None, VslaMemberList)
-urlpatterns += crudurl("crud", "savings-group-credit-score", VslaCreditScore, None, VslaCreditScoreList)
+urlpatterns += crudurl("crud", "savings-group-credit-score", VslaCreditScore, VslaCreditScoreForm, VslaCreditScoreList)
 urlpatterns += crudurl("crud", "savings-groups", Vsla, VslaForm, VslaList)
 urlpatterns += crudurl("crud", "financial-institutions", FinancialInstitution, FinancialInstitutionForm, FinancialInstitutionList)
 urlpatterns += crudurl("crud", "vsla-regions", VslaRegion, VslaRegionForm, VslaRegionList)

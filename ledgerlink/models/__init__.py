@@ -15,3 +15,4 @@ from ledgerlink.models.welfare import Welfare
 from ledgerlink.models.financial_institution import FinancialInstitution
 from ledgerlink.models.vsla_db_activation import VslaDbActivation
 from ledgerlink.models.vsla_banking_history import VslaBankingHistory
+from ledgerlink.models.vsla_credit_score import VslaCreditScore
