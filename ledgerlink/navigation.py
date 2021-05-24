@@ -16,9 +16,9 @@ def load_navigation(sender, navigation_trees, request):
 
         navigation_tree = navigation_trees["ledgerlink"]
 
-        FinancialInstitutions = FinancialInstitution.objects.all()
-        for object in FinancialInstitutions:
-            if request.user.has_perm(object.Code):
+        if request.user.has_perm('ledgerlink.rural_finance_initiative'):
+            FinancialInstitutions = FinancialInstitution.objects.filter(Code='rural_finance_initiative')
+            for object in FinancialInstitutions:
                 add_navigation(navigation_tree, 'Ledgerlink', "Savings Groups", "/crud/savings-groups/" + object.Code,
                                "fa-world", object.Name)
 
