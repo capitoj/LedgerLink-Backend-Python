@@ -69,7 +69,7 @@ class VslaCreditScoreForm(XFModelForm):
     def prepare_form_for_save(self, instance):
 
         instance = self.instance
-        response = requests.get("http://127.0.0.1:82/loanperformer/getloanperformervariables/?vsla_id=" + self.request.POST["Vsla"] + "&requested_loan_amount=" + self.request.POST["RequestedLoanAmount"])
+        response = requests.get("http://http://217.160.25.83:9007/loanperformer/getloanperformervariables/?vsla_id=" + self.request.POST["Vsla"] + "&requested_loan_amount=" + self.request.POST["RequestedLoanAmount"])
         if response.status_code == 200:
             json_data = response.json()
             if json_data["Status"] == "SUCCESSFUL":
