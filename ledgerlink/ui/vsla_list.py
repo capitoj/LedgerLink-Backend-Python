@@ -27,7 +27,7 @@ class VslaList(XFModelList):
 
         financial_institution_ids = []
         if "preset_filter" in view_kwargs:
-            if self.request.user.has_perm(view_kwargs.get("preset_filter")):
+            if self.request.user.has_perm('ledgerlink.' + view_kwargs.get("preset_filter")):
                 model_objects = FinancialInstitution.objects.filter(Code__in = [view_kwargs.get("preset_filter")])
                 if model_objects.count() == 1:
                     for model_object in model_objects:
